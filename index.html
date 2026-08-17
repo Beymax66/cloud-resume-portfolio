@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smooth Scroll Animation</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            background-color: #000000;
+            color: #ffffff;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* The container determines how long the user scrolls to finish the animation */
+        .animation-container {
+            height: 400vh; /* Reduced from 600vh for better pacing */
+            position: relative;
+        }
+
+        .sticky-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background-color: #000;
+        }
+
+        canvas {
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover; /* This ensures the image covers the entire screen, leaving no blank space */
+        }
+
+        .loading-container {
+            position: absolute;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-text {
+            font-size: 1.2rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .progress-bar {
+            width: 300px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: #ffffff;
+            transition: width 0.1s;
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+        
+        .scroll-indicator.visible {
+            opacity: 0.7;
+        }
+
+        .scroll-indicator p {
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        
+        .mouse {
+            width: 24px;
+            height: 36px;
+            border: 2px solid white;
+            border-radius: 12px;
+            position: relative;
+        }
+        
+        .wheel {
+            width: 4px;
+            height: 6px;
+            background: white;
+            border-radius: 2px;
+            position: absolute;
+            top: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: scroll 1.5s infinite;
+        }
+        
+        @keyframes scroll {
+            0% { top: 6px; opacity: 1; }
+            100% { top: 20px; opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="animation-container">
+        <div class="sticky-wrapper">
+            <div class="loading-container" id="loadingContainer">
+                <div class="loading-text" id="loadingText">Loading Frames 0%</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+            
+            <canvas id="animationCanvas"></canvas>
+            
+            <div class="scroll-indicator" id="scrollIndicator">
+                <p>Scroll Down</p>
+                <div class="mouse"><div class="wheel"></div></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById("animationCanvas");
+        const context = canvas.getContext("2d");
+        const loadingContainer = document.getElementById("loadingContainer");
+        const loadingText = document.getElementById("loadingText");
+        const progressFill = document.getElementById("progressFill");
+        const scrollIndicator = document.getElementById("scrollIndicator");
+
+        const frameCount = 295;
+        const currentFrame = index => `frames/ezgif-frame-${index.toString().padStart(3, '0')}.jpg`;
+
+        const images = [];
+        let loadedImages = 0;
+        let lastDrawnIndex = -1;
+
+        // Ensure canvas stays sharp on high DPI screens
+        function setupCanvas(img) {
+            canvas.width = img.width;
+            canvas.height = img.height;
+            context.drawImage(img, 0, 0);
+        }
+
+        for (let i = 1; i <= frameCount; i++) {
+            const img = new Image();
+            img.src = currentFrame(i);
+            
+            img.onload = () => {
+                loadedImages++;
+                
+                // Update progress
+                const progress = Math.round((loadedImages / frameCount) * 100);
+                loadingText.innerText = `Loading Frames ${progress}%`;
+                progressFill.style.width = `${progress}%`;
+                
+                if (loadedImages === 1) {
+                    setupCanvas(img);
+                    lastDrawnIndex = 0;
+                }
+                
+                // When fully loaded
+                if (loadedImages === frameCount) {
+                    setTimeout(() => {
+                        loadingContainer.style.opacity = '0';
+                        setTimeout(() => {
+                            loadingContainer.style.display = 'none';
+                            scrollIndicator.classList.add('visible');
+                        }, 500);
+                    }, 500);
+                }
+            };
+            images.push(img);
+        }
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = document.documentElement.scrollTop;
+            const maxScrollTop = document.documentElement.scrollHeight - window.innerHeight;
+            
+            // Hide scroll indicator once user starts scrolling
+            if (scrollTop > 50) {
+                scrollIndicator.classList.remove('visible');
+            }
+            
+            const scrollFraction = Math.max(0, Math.min(1, scrollTop / maxScrollTop));
+            const frameIndex = Math.min(
+                frameCount - 1,
+                Math.floor(scrollFraction * frameCount)
+            );
+            
+            requestAnimationFrame(() => updateImage(frameIndex));
+        });
+
+        function updateImage(index) {
+            // Find the closest loaded image if the exact one isn't ready
+            let targetIndex = index;
+            while (targetIndex >= 0 && (!images[targetIndex] || !images[targetIndex].complete)) {
+                targetIndex--;
+            }
+            
+            if (targetIndex >= 0 && targetIndex !== lastDrawnIndex) {
+                const img = images[targetIndex];
+                context.drawImage(img, 0, 0, canvas.width, canvas.height);
+                lastDrawnIndex = targetIndex;
+            }
+        }
+        
+        // Handle resize
+        window.addEventListener('resize', () => {
+            if (lastDrawnIndex >= 0) {
+                setupCanvas(images[lastDrawnIndex]);
+            }
+        });
+    </script>
+</body>
+</html>
