@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smooth Scroll Animation</title>
+    <title>Cinematic Portfolio</title>
     <style>
         body, html {
             margin: 0;
@@ -12,7 +12,7 @@
             color: #ffffff;
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
             overflow-x: hidden;
-            scroll-behavior: smooth;
+            scroll-behavior: smooth; /* enables smooth snapping */
         }
 
         /* The container determines how long the user scrolls to finish the animation */
@@ -38,8 +38,86 @@
             width: 100vw;
             height: 100vh;
             object-fit: cover; /* This ensures the image covers the entire screen, leaving no blank space */
+            z-index: 1;
         }
 
+        /* ========================================= */
+        /* SCENE OVERLAY SYSTEM                      */
+        /* ========================================= */
+        .scene-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2; /* Above canvas */
+            pointer-events: none; /* Let scroll pass through */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .scene {
+            position: absolute;
+            width: 90%;
+            max-width: 800px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            pointer-events: auto; /* Enable clicks inside the scene */
+        }
+
+        .scene.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .scene-content {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 3rem;
+            border-radius: 16px;
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: left;
+        }
+
+        .scene-content h2 {
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            font-size: 1.5rem;
+            color: #ccc;
+        }
+
+        /* Hero Specific Tweaks */
+        #scene-hero .scene-content {
+            background: transparent;
+            border: none;
+            backdrop-filter: none;
+            text-align: center;
+        }
+
+        #scene-hero h1 {
+            font-size: 4rem;
+            margin: 0 0 1rem 0;
+            letter-spacing: 4px;
+        }
+
+        #scene-hero .hero-tag {
+            display: inline-block;
+            background: rgba(255,255,255,0.1);
+            padding: 10px 20px;
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            margin-top: 2rem;
+        }
+
+        /* ========================================= */
+        /* LOADING & UTILS                           */
+        /* ========================================= */
         .loading-container {
             position: absolute;
             z-index: 10;
@@ -118,10 +196,10 @@
             top: 6px;
             left: 50%;
             transform: translateX(-50%);
-            animation: scroll 1.5s infinite;
+            animation: scroll-mouse 1.5s infinite;
         }
         
-        @keyframes scroll {
+        @keyframes scroll-mouse {
             0% { top: 6px; opacity: 1; }
             100% { top: 20px; opacity: 0; }
         }
@@ -139,6 +217,87 @@
             </div>
             
             <canvas id="animationCanvas"></canvas>
+
+            <!-- SCENE OVERLAYS -->
+            <div class="scene-overlay" id="sceneOverlay">
+                <!-- 01 HERO -->
+                <div class="scene" id="scene-hero">
+                    <div class="scene-content">
+                        <h1>[Name]</h1>
+                        <p style="font-size: 1.5rem; opacity: 0.8; margin: 0;">[Job Role]</p>
+                        <div class="hero-tag">[Floating Tag / Card]</div>
+                    </div>
+                </div>
+
+                <!-- 02 ABOUT ME -->
+                <div class="scene" id="scene-about">
+                    <div class="scene-content">
+                        <h2>About Me</h2>
+                        <p>[Placeholder for About Me content. Write your bio here.]</p>
+                    </div>
+                </div>
+
+                <!-- 03 SKILLS -->
+                <div class="scene" id="scene-skills">
+                    <div class="scene-content">
+                        <h2>Skills</h2>
+                        <p>[Placeholder for technical skills, languages, tools, etc.]</p>
+                    </div>
+                </div>
+
+                <!-- 04 PROJECTS -->
+                <div class="scene" id="scene-projects">
+                    <div class="scene-content">
+                        <h2>Projects</h2>
+                        <p>[Placeholder for projects. AWS Cloud Resume Challenge will go here.]</p>
+                    </div>
+                </div>
+
+                <!-- 05 AWARDS / CERTIFICATIONS -->
+                <div class="scene" id="scene-certifications">
+                    <div class="scene-content">
+                        <h2>Awards & Certifications</h2>
+                        <p>[Placeholder for awards and certificates.]</p>
+                    </div>
+                </div>
+
+                <!-- 06 EDUCATION -->
+                <div class="scene" id="scene-education">
+                    <div class="scene-content">
+                        <h2>Education</h2>
+                        <p>[Placeholder for university/education details.]</p>
+                    </div>
+                </div>
+
+                <!-- 07 EXPERIENCE -->
+                <div class="scene" id="scene-experience">
+                    <div class="scene-content">
+                        <h2>Experience</h2>
+                        <p>[Placeholder for work history and professional experience.]</p>
+                    </div>
+                </div>
+
+                <!-- 08 FEEDBACK & VIEWER COUNT -->
+                <div class="scene" id="scene-feedback">
+                    <div class="scene-content">
+                        <h2>Feedback & Viewer Count</h2>
+                        <div style="padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 8px; margin-bottom: 1rem;">
+                            <p style="margin:0; opacity: 0.7;">Total Views:</p>
+                            <h3 style="margin: 0; font-size: 2rem;">[0,000]</h3>
+                            <small style="opacity: 0.5;">(AWS API integration pending)</small>
+                        </div>
+                        <p>[Placeholder for Testimonials / Feedback area]</p>
+                    </div>
+                </div>
+
+                <!-- 09 FOOTER / CONTACT -->
+                <div class="scene" id="scene-footer">
+                    <div class="scene-content">
+                        <h2>Let's Connect</h2>
+                        <p>[Placeholder for email, LinkedIn, GitHub, etc.]</p>
+                    </div>
+                </div>
+            </div>
             
             <div class="scroll-indicator" id="scrollIndicator">
                 <p>Scroll Down</p>
@@ -148,6 +307,26 @@
     </div>
 
     <script>
+        // ==========================================
+        // 1. CENTRALIZED CONFIGURATION (SNAP POINTS)
+        // ==========================================
+        // These numbers represent the exact frame index (0-294) you want each scene to snap to.
+        // Change these to tune the exact visual moment each scene lands on.
+        const SCENES = [
+            { id: "scene-hero", snapFrame: 0 },
+            { id: "scene-about", snapFrame: 35 },
+            { id: "scene-skills", snapFrame: 70 },
+            { id: "scene-projects", snapFrame: 105 },
+            { id: "scene-certifications", snapFrame: 140 },
+            { id: "scene-education", snapFrame: 175 },
+            { id: "scene-experience", snapFrame: 210 },
+            { id: "scene-feedback", snapFrame: 245 },
+            { id: "scene-footer", snapFrame: 294 }
+        ];
+
+        // ==========================================
+        // 2. EXISTING ANIMATION ENGINE
+        // ==========================================
         const canvas = document.getElementById("animationCanvas");
         const context = canvas.getContext("2d");
         const loadingContainer = document.getElementById("loadingContainer");
@@ -193,12 +372,21 @@
                         setTimeout(() => {
                             loadingContainer.style.display = 'none';
                             scrollIndicator.classList.add('visible');
+                            
+                            // Initialize first scene
+                            updateActiveScene(0);
                         }, 500);
                     }, 500);
                 }
             };
             images.push(img);
         }
+
+        // ==========================================
+        // 3. SCROLL & SNAP MECHANICS
+        // ==========================================
+        let snapTimeout;
+        let isSnapping = false;
 
         window.addEventListener('scroll', () => {
             const scrollTop = document.documentElement.scrollTop;
@@ -215,7 +403,18 @@
                 Math.floor(scrollFraction * frameCount)
             );
             
-            requestAnimationFrame(() => updateImage(frameIndex));
+            requestAnimationFrame(() => {
+                updateImage(frameIndex);
+                updateActiveScene(frameIndex);
+            });
+
+            // Handle Snap Logic
+            if (!isSnapping) {
+                clearTimeout(snapTimeout);
+                snapTimeout = setTimeout(() => {
+                    executeSnap(frameIndex, maxScrollTop);
+                }, 200); // Wait 200ms after scrolling stops before snapping
+            }
         });
 
         function updateImage(index) {
@@ -229,6 +428,61 @@
                 const img = images[targetIndex];
                 context.drawImage(img, 0, 0, canvas.width, canvas.height);
                 lastDrawnIndex = targetIndex;
+            }
+        }
+
+        function updateActiveScene(currentFrameIndex) {
+            // Find which scene is closest to the current frame
+            let closestScene = SCENES[0];
+            let minDistance = Infinity;
+
+            SCENES.forEach(scene => {
+                const distance = Math.abs(currentFrameIndex - scene.snapFrame);
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    closestScene = scene;
+                }
+            });
+
+            // Update DOM classes for fade in/out
+            document.querySelectorAll('.scene').forEach(el => {
+                if (el.id === closestScene.id) {
+                    el.classList.add('active');
+                } else {
+                    el.classList.remove('active');
+                }
+            });
+        }
+
+        function executeSnap(currentFrameIndex, maxScrollTop) {
+            // Find the closest scene to snap to
+            let closestScene = SCENES[0];
+            let minDistance = Infinity;
+
+            SCENES.forEach(scene => {
+                const distance = Math.abs(currentFrameIndex - scene.snapFrame);
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    closestScene = scene;
+                }
+            });
+
+            // Calculate the exact pixel scroll position for this scene's frame
+            const targetScrollFraction = closestScene.snapFrame / frameCount;
+            const targetScrollTop = targetScrollFraction * maxScrollTop;
+
+            // Only snap if we are not already perfectly there (prevent loop)
+            if (Math.abs(document.documentElement.scrollTop - targetScrollTop) > 5) {
+                isSnapping = true;
+                window.scrollTo({
+                    top: targetScrollTop,
+                    behavior: 'smooth'
+                });
+
+                // Re-enable snapping logic after the smooth scroll animation completes
+                setTimeout(() => {
+                    isSnapping = false;
+                }, 600); 
             }
         }
         
