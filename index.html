@@ -1,23 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cinematic Portfolio</title>
     <style>
-        body, html {
+        body,
+        html {
             margin: 0;
             padding: 0;
             background-color: #000000;
             color: #ffffff;
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
             overflow-x: hidden;
-            scroll-behavior: smooth; /* enables smooth snapping */
+            scroll-behavior: smooth;
+            /* enables smooth snapping */
         }
 
         /* The container determines how long the user scrolls to finish the animation */
         .animation-container {
-            height: 400vh; /* Reduced from 600vh for better pacing */
+            height: 400vh;
+            /* Reduced from 600vh for better pacing */
             position: relative;
         }
 
@@ -37,7 +41,8 @@
         canvas {
             width: 100vw;
             height: 100vh;
-            object-fit: cover; /* This ensures the image covers the entire screen, leaving no blank space */
+            object-fit: cover;
+            /* This ensures the image covers the entire screen, leaving no blank space */
             z-index: 1;
         }
 
@@ -50,8 +55,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 2; /* Above canvas */
-            pointer-events: none; /* Let scroll pass through */
+            z-index: 2;
+            /* Above canvas */
+            pointer-events: none;
+            /* Let scroll pass through */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -64,55 +71,13 @@
             opacity: 0;
             transform: translateY(30px);
             transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-            pointer-events: auto; /* Enable clicks inside the scene */
+            pointer-events: auto;
+            /* Enable clicks inside the scene */
         }
 
         .scene.active {
             opacity: 1;
             transform: translateY(0);
-        }
-
-        .scene-content {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 3rem;
-            border-radius: 16px;
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: left;
-        }
-
-        .scene-content h2 {
-            font-weight: 300;
-            letter-spacing: 2px;
-            margin-top: 0;
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
-            font-size: 1.5rem;
-            color: #ccc;
-        }
-
-        /* Hero Specific Tweaks */
-        #scene-hero .scene-content {
-            background: transparent;
-            border: none;
-            backdrop-filter: none;
-            text-align: center;
-        }
-
-        #scene-hero h1 {
-            font-size: 4rem;
-            margin: 0 0 1rem 0;
-            letter-spacing: 4px;
-        }
-
-        #scene-hero .hero-tag {
-            display: inline-block;
-            background: rgba(255,255,255,0.1);
-            padding: 10px 20px;
-            border-radius: 30px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
-            margin-top: 2rem;
         }
 
         /* ========================================= */
@@ -154,7 +119,7 @@
             background: #ffffff;
             transition: width 0.1s;
         }
-        
+
         .scroll-indicator {
             position: absolute;
             bottom: 40px;
@@ -167,7 +132,7 @@
             opacity: 0;
             transition: opacity 1s ease;
         }
-        
+
         .scroll-indicator.visible {
             opacity: 0.7;
         }
@@ -178,7 +143,7 @@
             margin-bottom: 10px;
             text-transform: uppercase;
         }
-        
+
         .mouse {
             width: 24px;
             height: 36px;
@@ -186,7 +151,7 @@
             border-radius: 12px;
             position: relative;
         }
-        
+
         .wheel {
             width: 4px;
             height: 6px;
@@ -198,13 +163,73 @@
             transform: translateX(-50%);
             animation: scroll-mouse 1.5s infinite;
         }
-        
+
         @keyframes scroll-mouse {
-            0% { top: 6px; opacity: 1; }
-            100% { top: 20px; opacity: 0; }
+            0% {
+                top: 6px;
+                opacity: 1;
+            }
+
+            100% {
+                top: 20px;
+                opacity: 0;
+            }
+        }
+
+        .progress-rail {
+            position: absolute;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            z-index: 10;
+        }
+
+        .progress-rail::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            bottom: 10px;
+            width: 1px;
+            background: rgba(255, 255, 255, 0.15);
+            z-index: -1;
+        }
+
+        .progress-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .progress-dot.active {
+            background: #ffffff;
+            transform: scale(1.5);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+
+        .debug-inspector {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #0f0;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 14px;
+            z-index: 9999;
+            border: 1px solid #0f0;
+            pointer-events: none;
+            display: none;
+            /* toggled via js */
         }
     </style>
-</head>
+
 <body>
 
     <div class="animation-container">
@@ -215,93 +240,55 @@
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
             </div>
-            
+
             <canvas id="animationCanvas"></canvas>
+
+            <!-- DEBUG UI -->
+            <div id="debugInspector" class="debug-inspector">
+                <div>Frame: <span id="debugFrame">0</span> / 295</div>
+                <div>Scene: <span id="debugScene">Hero</span></div>
+            </div>
+
+            <!-- PROGRESS RAIL -->
+            <div class="progress-rail" id="progressRail">
+                <!-- Dots generated by JS -->
+            </div>
 
             <!-- SCENE OVERLAYS -->
             <div class="scene-overlay" id="sceneOverlay">
                 <!-- 01 HERO -->
-                <div class="scene" id="scene-hero">
-                    <div class="scene-content">
-                        <h1>[Name]</h1>
-                        <p style="font-size: 1.5rem; opacity: 0.8; margin: 0;">[Job Role]</p>
-                        <div class="hero-tag">[Floating Tag / Card]</div>
-                    </div>
-                </div>
+                <div class="scene" id="scene-hero"></div>
 
                 <!-- 02 ABOUT ME -->
-                <div class="scene" id="scene-about">
-                    <div class="scene-content">
-                        <h2>About Me</h2>
-                        <p>[Placeholder for About Me content. Write your bio here.]</p>
-                    </div>
-                </div>
+                <div class="scene" id="scene-about"></div>
 
                 <!-- 03 SKILLS -->
-                <div class="scene" id="scene-skills">
-                    <div class="scene-content">
-                        <h2>Skills</h2>
-                        <p>[Placeholder for technical skills, languages, tools, etc.]</p>
-                    </div>
-                </div>
+                <div class="scene" id="scene-skills"></div>
 
                 <!-- 04 PROJECTS -->
-                <div class="scene" id="scene-projects">
-                    <div class="scene-content">
-                        <h2>Projects</h2>
-                        <p>[Placeholder for projects. AWS Cloud Resume Challenge will go here.]</p>
-                    </div>
-                </div>
+                <div class="scene" id="scene-projects"></div>
 
                 <!-- 05 AWARDS / CERTIFICATIONS -->
-                <div class="scene" id="scene-certifications">
-                    <div class="scene-content">
-                        <h2>Awards & Certifications</h2>
-                        <p>[Placeholder for awards and certificates.]</p>
-                    </div>
-                </div>
+                <div class="scene" id="scene-certifications"></div>
 
                 <!-- 06 EDUCATION -->
-                <div class="scene" id="scene-education">
-                    <div class="scene-content">
-                        <h2>Education</h2>
-                        <p>[Placeholder for university/education details.]</p>
-                    </div>
-                </div>
+                <div class="scene" id="scene-education"></div>
 
                 <!-- 07 EXPERIENCE -->
-                <div class="scene" id="scene-experience">
-                    <div class="scene-content">
-                        <h2>Experience</h2>
-                        <p>[Placeholder for work history and professional experience.]</p>
-                    </div>
-                </div>
+                <div class="scene" id="scene-experience"></div>
 
                 <!-- 08 FEEDBACK & VIEWER COUNT -->
-                <div class="scene" id="scene-feedback">
-                    <div class="scene-content">
-                        <h2>Feedback & Viewer Count</h2>
-                        <div style="padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 8px; margin-bottom: 1rem;">
-                            <p style="margin:0; opacity: 0.7;">Total Views:</p>
-                            <h3 style="margin: 0; font-size: 2rem;">[0,000]</h3>
-                            <small style="opacity: 0.5;">(AWS API integration pending)</small>
-                        </div>
-                        <p>[Placeholder for Testimonials / Feedback area]</p>
-                    </div>
-                </div>
+                <div class="scene" id="scene-feedback"></div>
 
                 <!-- 09 FOOTER / CONTACT -->
-                <div class="scene" id="scene-footer">
-                    <div class="scene-content">
-                        <h2>Let's Connect</h2>
-                        <p>[Placeholder for email, LinkedIn, GitHub, etc.]</p>
-                    </div>
-                </div>
+                <div class="scene" id="scene-footer"></div>
             </div>
-            
+
             <div class="scroll-indicator" id="scrollIndicator">
                 <p>Scroll Down</p>
-                <div class="mouse"><div class="wheel"></div></div>
+                <div class="mouse">
+                    <div class="wheel"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -313,15 +300,15 @@
         // These numbers represent the exact frame index (0-294) you want each scene to snap to.
         // Change these to tune the exact visual moment each scene lands on.
         const SCENES = [
-            { id: "scene-hero", snapFrame: 0 },
-            { id: "scene-about", snapFrame: 35 },
-            { id: "scene-skills", snapFrame: 70 },
-            { id: "scene-projects", snapFrame: 105 },
-            { id: "scene-certifications", snapFrame: 140 },
-            { id: "scene-education", snapFrame: 175 },
-            { id: "scene-experience", snapFrame: 210 },
-            { id: "scene-feedback", snapFrame: 245 },
-            { id: "scene-footer", snapFrame: 294 }
+            { id: "scene-hero", label: "Hero", snapFrame: 0 },
+            { id: "scene-about", label: "About Me", snapFrame: 36 },
+            { id: "scene-skills", label: "Skills", snapFrame: 62 },
+            { id: "scene-projects", label: "Projects", snapFrame: 105 },
+            { id: "scene-certifications", label: "Awards & Certifications", snapFrame: 160 },
+            { id: "scene-education", label: "Education", snapFrame: 216 },
+            { id: "scene-experience", label: "Experience", snapFrame: 230 },
+            { id: "scene-feedback", label: "Feedback & Viewer Count", snapFrame: 259 },
+            { id: "scene-footer", label: "Footer / Contact", snapFrame: 294 }
         ];
 
         // ==========================================
@@ -351,20 +338,20 @@
         for (let i = 1; i <= frameCount; i++) {
             const img = new Image();
             img.src = currentFrame(i);
-            
+
             img.onload = () => {
                 loadedImages++;
-                
+
                 // Update progress
                 const progress = Math.round((loadedImages / frameCount) * 100);
                 loadingText.innerText = `Loading Frames ${progress}%`;
                 progressFill.style.width = `${progress}%`;
-                
+
                 if (loadedImages === 1) {
                     setupCanvas(img);
                     lastDrawnIndex = 0;
                 }
-                
+
                 // When fully loaded
                 if (loadedImages === frameCount) {
                     setTimeout(() => {
@@ -372,7 +359,7 @@
                         setTimeout(() => {
                             loadingContainer.style.display = 'none';
                             scrollIndicator.classList.add('visible');
-                            
+
                             // Initialize first scene
                             updateActiveScene(0);
                         }, 500);
@@ -387,22 +374,55 @@
         // ==========================================
         let snapTimeout;
         let isSnapping = false;
+        let activeSceneIndex = 0;
+
+
+
+        // Progress Rail Init
+        const progressRail = document.getElementById("progressRail");
+        SCENES.forEach((scene, i) => {
+            const dot = document.createElement("div");
+            dot.className = "progress-dot";
+            dot.id = `dot-${i}`;
+            progressRail.appendChild(dot);
+        });
+
+        // Keyboard Navigation
+        window.addEventListener("keydown", (e) => {
+            if (["input", "textarea"].includes(document.activeElement.tagName.toLowerCase())) return;
+
+            if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+                e.preventDefault();
+
+                let targetIndex = activeSceneIndex;
+                if (e.key === "ArrowDown" && activeSceneIndex < SCENES.length - 1) {
+                    targetIndex++;
+                } else if (e.key === "ArrowUp" && activeSceneIndex > 0) {
+                    targetIndex--;
+                }
+
+                if (targetIndex !== activeSceneIndex) {
+                    const maxScrollTop = document.documentElement.scrollHeight - window.innerHeight;
+                    executeSnap(SCENES[targetIndex].snapFrame, maxScrollTop);
+                }
+            }
+        });
 
         window.addEventListener('scroll', () => {
             const scrollTop = document.documentElement.scrollTop;
             const maxScrollTop = document.documentElement.scrollHeight - window.innerHeight;
-            
+
             // Hide scroll indicator once user starts scrolling
             if (scrollTop > 50) {
                 scrollIndicator.classList.remove('visible');
             }
-            
+
             const scrollFraction = Math.max(0, Math.min(1, scrollTop / maxScrollTop));
             const frameIndex = Math.min(
                 frameCount - 1,
                 Math.floor(scrollFraction * frameCount)
             );
-            
+
             requestAnimationFrame(() => {
                 updateImage(frameIndex);
                 updateActiveScene(frameIndex);
@@ -423,7 +443,7 @@
             while (targetIndex >= 0 && (!images[targetIndex] || !images[targetIndex].complete)) {
                 targetIndex--;
             }
-            
+
             if (targetIndex >= 0 && targetIndex !== lastDrawnIndex) {
                 const img = images[targetIndex];
                 context.drawImage(img, 0, 0, canvas.width, canvas.height);
@@ -433,16 +453,19 @@
 
         function updateActiveScene(currentFrameIndex) {
             // Find which scene is closest to the current frame
-            let closestScene = SCENES[0];
+            let closestSceneIndex = 0;
             let minDistance = Infinity;
 
-            SCENES.forEach(scene => {
+            SCENES.forEach((scene, index) => {
                 const distance = Math.abs(currentFrameIndex - scene.snapFrame);
                 if (distance < minDistance) {
                     minDistance = distance;
-                    closestScene = scene;
+                    closestSceneIndex = index;
                 }
             });
+
+            activeSceneIndex = closestSceneIndex;
+            const closestScene = SCENES[activeSceneIndex];
 
             // Update DOM classes for fade in/out
             document.querySelectorAll('.scene').forEach(el => {
@@ -452,6 +475,21 @@
                     el.classList.remove('active');
                 }
             });
+
+            // Update Progress Dots
+            document.querySelectorAll('.progress-dot').forEach((dot, index) => {
+                if (index === activeSceneIndex) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+
+            // Update Debug UI
+            if (debugInspector.style.display === 'block') {
+                debugFrame.innerText = currentFrameIndex;
+                debugScene.innerText = closestScene.label;
+            }
         }
 
         function executeSnap(currentFrameIndex, maxScrollTop) {
@@ -482,10 +520,10 @@
                 // Re-enable snapping logic after the smooth scroll animation completes
                 setTimeout(() => {
                     isSnapping = false;
-                }, 600); 
+                }, 600);
             }
         }
-        
+
         // Handle resize
         window.addEventListener('resize', () => {
             if (lastDrawnIndex >= 0) {
@@ -494,4 +532,5 @@
         });
     </script>
 </body>
+
 </html>
