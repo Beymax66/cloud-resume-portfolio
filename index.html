@@ -7,8 +7,9 @@
     <title>Cinematic Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Inter:wght@300;400;700;900&family=Playfair+Display:wght@700&family=Great+Vibes&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
     <style>
         body,
         html {
@@ -82,6 +83,12 @@
         .scene.active {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        .scene.active .skills-container,
+        .scene.active .quote-container,
+        .scene.active .projects-wrapper {
+            pointer-events: auto;
         }
 
         /* ========================================= */
@@ -246,8 +253,12 @@
         }
         
         .top-nav {
+            position: absolute;
+            top: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
             pointer-events: auto;
-            margin-top: 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -259,7 +270,6 @@
             width: max-content;
             gap: 40px;
             max-width: 95%;
-            align-self: center;
         }
 
         .nav-brand {
@@ -330,6 +340,8 @@
             margin: 0;
             text-transform: uppercase;
             z-index: 2;
+            transform: scaleX(0.9);
+            transform-origin: left center;
         }
 
         .bg-name {
@@ -345,6 +357,8 @@
             letter-spacing: 5px;
             opacity: 0.8;
             pointer-events: none;
+            transform: scaleX(0.9);
+            transform-origin: left center;
         }
 
         .hero-actions {
@@ -379,18 +393,19 @@
 
         .global-socials {
             position: absolute;
-            bottom: 30px;
+            bottom: 12px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
             gap: 20px;
             background: rgba(20, 20, 20, 0.7);
-            padding: 15px 30px;
+            padding: 12px 25px;
             border-radius: 40px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             z-index: 10;
             backdrop-filter: blur(10px);
             pointer-events: auto;
+            width: max-content;
         }
 
         .global-socials a {
@@ -402,6 +417,468 @@
 
         .global-socials a:hover {
             opacity: 1;
+        }
+
+        /* ========================================= */
+        /* ABOUT SCENE UI                            */
+        /* ========================================= */
+        #scene-about {
+            width: 100%;
+            max-width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .about-left {
+            position: absolute;
+            left: 12%;
+            top: 25%;
+            pointer-events: auto;
+        }
+
+        .about-title {
+            font-family: 'Playfair Display', serif;
+            color: #ffffff;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 0;
+            text-shadow: 2px 2px 0px rgba(20, 0, 40, 0.8),
+                         -1px -1px 3px rgba(183, 33, 255, 0.6),
+                         1px 1px 3px rgba(183, 33, 255, 0.6);
+            letter-spacing: 1px;
+        }
+
+        .about-right {
+            position: absolute;
+            right: 8%;
+            top: 72%;
+            transform: translateY(-50%);
+            width: 45vw;
+            max-width: 550px;
+            pointer-events: auto;
+            text-align: left;
+        }
+
+        .about-roles {
+            color: #d18cff;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .about-desc {
+            font-family: 'Zapf Chancery', 'Apple Chancery', 'URW Chancery L', 'Monotype Corsiva', 'Playfair Display', serif;
+            font-style: italic;
+            color: #ffffff;
+            font-size: 1.3rem;
+            line-height: 1.5;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+        /* ========================================= */
+        /* SKILLS SCENE UI                           */
+        /* ========================================= */
+        #scene-skills {
+            width: 100%;
+            max-width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            box-sizing: border-box;
+        }
+
+        .skills-container {
+            width: 32vw;
+            max-width: 400px;
+            background: rgba(15, 10, 30, 0.6);
+            border: 1px solid rgba(183, 33, 255, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(15px);
+        }
+
+        .skills-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .skills-bullet {
+            width: 10px;
+            height: 10px;
+            background: #b721ff;
+            border-radius: 2px;
+        }
+
+        .skills-title {
+            color: #ffffff;
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .skill-card {
+            background: rgba(30, 20, 50, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 12px 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-3px);
+            background: rgba(50, 30, 80, 0.8);
+            border-color: rgba(183, 33, 255, 0.5);
+            box-shadow: 0 5px 15px rgba(183, 33, 255, 0.2);
+        }
+
+        .skill-card i {
+            font-size: 1.8rem;
+        }
+        
+        .skill-react { color: #61dafb; }
+        .skill-node { color: #83cd29; }
+        .skill-aws { color: #ff9900; }
+        .skill-docker { color: #0db7ed; }
+        .skill-k8s { color: #326ce5; }
+        .skill-terraform { color: #5c4ee5; }
+        .skill-jenkins { color: #d33833; }
+        .skill-ansible { color: #ffffff; }
+        .skill-davinci { color: #ff3366; }
+        .skill-opencv { color: #ffffff; }
+        .skill-python { color: #ffda4c; }
+        .skill-canva { color: #00c4cc; }
+        .skill-github { color: #ffffff; }
+        .skill-android { color: #a4c639; }
+        .skill-ag { color: #cccccc; }
+        .skill-vscode { color: #007acc; }
+
+        .skill-name {
+            color: #d0d0d0;
+            font-size: 0.55rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .quote-container {
+            width: 32vw;
+            max-width: 400px;
+            background: rgba(15, 10, 30, 0.6);
+            border: 1px solid rgba(183, 33, 255, 0.2);
+            border-radius: 15px;
+            padding: 35px 30px;
+            backdrop-filter: blur(15px);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            min-height: 380px;
+        }
+
+        .quote-icon {
+            color: #b721ff;
+            font-size: 1.5rem;
+        }
+
+        .quote-text {
+            color: #ffffff;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            font-weight: 400;
+            margin-bottom: auto;
+        }
+
+        .quote-footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .quote-author {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .quote-author-name {
+            color: #ffffff;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .quote-author-title {
+            color: #999999;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .quote-stars {
+            color: #b721ff;
+            font-size: 0.9rem;
+            display: flex;
+            gap: 5px;
+        }
+
+        /* ========================================= */
+        /* PROJECTS SCENE UI                         */
+        /* ========================================= */
+        #scene-projects {
+            width: 100%;
+            max-width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .projects-wrapper {
+            width: 85%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .projects-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 15px;
+        }
+
+        .projects-title-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .projects-bullet {
+            width: 10px;
+            height: 10px;
+            background: #b721ff;
+            border-radius: 2px;
+        }
+
+        .projects-title {
+            color: #ffffff;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .explore-all {
+            color: #b721ff;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .explore-all:hover {
+            color: #ffffff;
+            text-shadow: 0 0 10px #b721ff;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .project-card {
+            background: rgba(15, 10, 30, 0.7);
+            border: 1px solid rgba(183, 33, 255, 0.15);
+            border-radius: 12px;
+            overflow: hidden;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(15px);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(183, 33, 255, 0.6);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(183, 33, 255, 0.2);
+        }
+
+        .project-image-placeholder {
+            height: 140px;
+            background: linear-gradient(135deg, #0d0714 0%, #1a0a29 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .project-image-placeholder::before {
+            content: '';
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(183,33,255,0.15) 0%, rgba(0,0,0,0) 60%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            transition: all 0.5s ease;
+        }
+
+        .project-card:hover .project-image-placeholder::before {
+            background: radial-gradient(circle, rgba(183,33,255,0.25) 0%, rgba(0,0,0,0) 70%);
+        }
+
+        .mockup-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            z-index: 1;
+        }
+
+        .mockup-content i {
+            font-size: 3rem;
+            color: #ff9900;
+            filter: drop-shadow(0 0 15px rgba(255, 153, 0, 0.3));
+            transition: transform 0.4s ease;
+        }
+
+        .project-card:hover .mockup-content i {
+            transform: scale(1.1);
+        }
+
+        .mockup-title {
+            color: #ffffff;
+            font-family: monospace;
+            font-size: 0.65rem;
+            letter-spacing: 3px;
+            opacity: 0.6;
+        }
+
+        .project-info {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .project-meta {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .project-number {
+            color: #b721ff;
+            font-size: 1.2rem;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            line-height: 1;
+        }
+
+        .project-name-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .project-name {
+            color: #ffffff;
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        .project-category {
+            color: #999999;
+            font-size: 0.55rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .project-status {
+            background: rgba(183, 33, 255, 0.15);
+            color: #d484ff;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-size: 0.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            border: 1px solid rgba(183, 33, 255, 0.4);
+            margin-left: auto;
+        }
+
+        .project-desc {
+            color: #a0a0a0;
+            font-size: 0.75rem;
+            line-height: 1.5;
+            margin-bottom: 5px;
+            padding-right: 20px;
+        }
+
+        .project-arrow {
+            position: absolute;
+            bottom: 25px;
+            right: 20px;
+            color: #b721ff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            opacity: 0.5;
+        }
+
+        .project-card:hover .project-arrow {
+            transform: translateX(5px);
+            opacity: 1;
+            color: #ffffff;
+            text-shadow: 0 0 10px #b721ff;
         }
     </style>
 
@@ -433,20 +910,6 @@
             <div class="scene-overlay" id="sceneOverlay">
                 <!-- 01 HERO -->
                 <div class="scene" id="scene-hero">
-                    <div class="top-nav">
-                        <div class="nav-brand">MOHAMMED NIHAL <span>/ CS GRADUATE + DEVOPS ENGINEER</span></div>
-                        <div class="nav-links">
-                            <a href="#" class="nav-link">ABOUT ME</a>
-                            <a href="#" class="nav-link">SKILLS</a>
-                            <a href="#" class="nav-link">PROJECTS</a>
-                            <a href="#" class="nav-link">CERTIFICATIONS</a>
-                            <a href="#" class="nav-link">EDUCATION</a>
-                            <a href="#" class="nav-link">EXPERIENCE</a>
-                            <a href="#" class="nav-link">FEEDBACK</a>
-                            <a href="#" class="nav-link">CONTACT</a>
-                        </div>
-                    </div>
-                    
                     <div class="hero-main">
                         <div class="greeting">Hello, I'm</div>
                         <h1 class="hero-name">MOHAMMED<br>NIHAL M H</h1>
@@ -461,13 +924,116 @@
                 </div>
 
                 <!-- 02 ABOUT ME -->
-                <div class="scene" id="scene-about"></div>
+                <div class="scene" id="scene-about">
+                    <div class="about-left">
+                        <div class="about-title">About Me</div>
+                    </div>
+                    <div class="about-right">
+                        <div class="about-roles">
+                            VIBE CODER (AI-PROMPT WEB DEV) &bull; FRONTEND DEV<br>
+                            CLOUD / DEVOPS &bull; VIDEO EDITING &bull; CS GRADUATE
+                        </div>
+                        <div class="about-desc">
+                            A Computer Science Graduate passionate about Software<br>
+                            Development, Cloud/DevOps, and Networking. I am keen to work<br>
+                            with AWS, Docker, Kubernetes, Terraform, Ansible, and modern<br>
+                            CI/CD pipelines to achieve faster, more reliable software<br>
+                            deployment and maintenance.
+                        </div>
+                    </div>
+                </div>
 
                 <!-- 03 SKILLS -->
-                <div class="scene" id="scene-skills"></div>
+                <div class="scene" id="scene-skills">
+                    <div class="skills-container">
+                        <div class="skills-header">
+                            <div class="skills-bullet"></div>
+                            <div class="skills-title">Skills & Tech Stack</div>
+                        </div>
+                        <div class="skills-grid">
+                            <div class="skill-card"><i class="devicon-react-original skill-react"></i><div class="skill-name">React.js</div></div>
+                            <div class="skill-card"><i class="devicon-nodejs-plain skill-node"></i><div class="skill-name">Node.js</div></div>
+                            <div class="skill-card"><i class="devicon-amazonwebservices-plain-wordmark skill-aws"></i><div class="skill-name">AWS</div></div>
+                            <div class="skill-card"><i class="devicon-docker-plain skill-docker"></i><div class="skill-name">Docker</div></div>
+                            
+                            <div class="skill-card"><i class="devicon-kubernetes-plain skill-k8s"></i><div class="skill-name">Kubernetes</div></div>
+                            <div class="skill-card"><i class="devicon-terraform-plain skill-terraform"></i><div class="skill-name">Terraform</div></div>
+                            <div class="skill-card"><i class="devicon-jenkins-plain skill-jenkins"></i><div class="skill-name">Jenkins</div></div>
+                            <div class="skill-card"><i class="devicon-ansible-plain skill-ansible"></i><div class="skill-name">Ansible</div></div>
+                            
+                            <div class="skill-card"><i class="fa-solid fa-compact-disc skill-davinci"></i><div class="skill-name">DaVinci Resolve</div></div>
+                            <div class="skill-card"><i class="devicon-opencv-plain skill-opencv"></i><div class="skill-name">OpenCV</div></div>
+                            <div class="skill-card"><i class="devicon-python-plain skill-python"></i><div class="skill-name">Python</div></div>
+                            <div class="skill-card"><i class="fa-solid fa-paintbrush skill-canva"></i><div class="skill-name">Canva</div></div>
+                            
+                            <div class="skill-card"><i class="devicon-github-original skill-github"></i><div class="skill-name">GitHub</div></div>
+                            <div class="skill-card"><i class="devicon-androidstudio-plain skill-android"></i><div class="skill-name">Android Studio</div></div>
+                            <div class="skill-card"><i class="fa-brands fa-autoprefixer skill-ag"></i><div class="skill-name">Antigravity</div></div>
+                            <div class="skill-card"><i class="devicon-vscode-plain skill-vscode"></i><div class="skill-name">VS Code</div></div>
+                        </div>
+                    </div>
+
+                    <div class="quote-container">
+                        <i class="fa-solid fa-quote-left quote-icon"></i>
+                        <div class="quote-text">
+                            To excel as a Cloud & DevOps Engineer specializing in AWS, Kubernetes, and CI/CD automation, bridging technical infrastructure with a keen passion for full-stack web engineering and digital video storytelling.
+                        </div>
+                        <div class="quote-footer">
+                            <div class="quote-author">
+                                <span class="quote-author-name">Mohammed Nihal</span>
+                                <span class="quote-author-title">Aspiring Cloud DevOps Engineer</span>
+                            </div>
+                            <div class="quote-stars">
+                                <i class="fa-solid fa-sparkle"></i>
+                                <i class="fa-solid fa-sparkle"></i>
+                                <i class="fa-solid fa-sparkle"></i>
+                                <i class="fa-solid fa-sparkle"></i>
+                                <i class="fa-solid fa-sparkle"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- 04 PROJECTS -->
-                <div class="scene" id="scene-projects"></div>
+                <div class="scene" id="scene-projects">
+                    <div class="projects-wrapper">
+                        <div class="projects-header">
+                            <div class="projects-title-wrapper">
+                                <div class="projects-bullet"></div>
+                                <h2 class="projects-title">Featured Projects (1)</h2>
+                            </div>
+                            <a href="#" class="explore-all">Explore All Projects &rarr;</a>
+                        </div>
+                        
+                        <div class="projects-grid">
+                            <!-- Project Card 01 -->
+                            <a href="./projects/cloud-resume-challenge/index.html" class="project-card">
+                                <div class="project-image-placeholder">
+                                    <div class="mockup-content">
+                                        <i class="devicon-amazonwebservices-plain-wordmark"></i>
+                                        <span class="mockup-title">SERVERLESS ARCHITECTURE</span>
+                                    </div>
+                                </div>
+                                <div class="project-info">
+                                    <div class="project-meta">
+                                        <span class="project-number">01</span>
+                                        <div class="project-name-wrapper">
+                                            <h3 class="project-name">AWS Cloud Resume Challenge</h3>
+                                            <span class="project-category">Cloud / DevOps</span>
+                                        </div>
+                                        <span class="project-status">IN PROGRESS</span>
+                                    </div>
+                                    <div class="project-desc">
+                                        A serverless portfolio website built on AWS, combining modern frontend development with cloud infrastructure, CDN delivery, DNS, HTTPS and a serverless visitor counter.
+                                    </div>
+                                    <i class="fa-solid fa-arrow-right project-arrow"></i>
+                                </div>
+                            </a>
+                            
+                            <!-- Future projects can be added here following the same .project-card structure -->
+                        </div>
+                    </div>
+                </div>
 
                 <!-- 05 AWARDS / CERTIFICATIONS -->
                 <div class="scene" id="scene-certifications"></div>
@@ -489,6 +1055,21 @@
                 <p>Scroll Down</p>
                 <div class="mouse">
                     <div class="wheel"></div>
+                </div>
+            </div>
+
+            <!-- GLOBAL TOP NAV -->
+            <div class="top-nav">
+                <div class="nav-brand">MOHAMMED NIHAL <span>/ CS GRADUATE + DEVOPS ENGINEER</span></div>
+                <div class="nav-links">
+                    <a href="#" class="nav-link">ABOUT ME</a>
+                    <a href="#" class="nav-link">SKILLS</a>
+                    <a href="#" class="nav-link">PROJECTS</a>
+                    <a href="#" class="nav-link">CERTIFICATIONS</a>
+                    <a href="#" class="nav-link">EDUCATION</a>
+                    <a href="#" class="nav-link">EXPERIENCE</a>
+                    <a href="#" class="nav-link">FEEDBACK</a>
+                    <a href="#" class="nav-link">CONTACT</a>
                 </div>
             </div>
 
@@ -566,11 +1147,34 @@
                 if (loadedImages === frameCount) {
                     setTimeout(() => {
                         loadingContainer.style.opacity = '0';
-                        setTimeout(() => {
+                            setTimeout(() => {
                             loadingContainer.style.display = 'none';
                             scrollIndicator.classList.add('visible');
 
-                            // Initialize first scene
+                            // Check URL hash for initial snap point
+                            const hash = window.location.hash;
+                            if (hash) {
+                                const targetScene = SCENES.find(s => s.id === hash.substring(1));
+                                if (targetScene) {
+                                    const maxScrollTop = document.documentElement.scrollHeight - window.innerHeight;
+                                    const targetScrollFraction = targetScene.snapFrame / frameCount;
+                                    const targetScrollTop = targetScrollFraction * maxScrollTop;
+                                    
+                                    // Instantly scroll to the target pixel position
+                                    window.scrollTo({ top: targetScrollTop, behavior: 'instant' });
+                                    
+                                    // Update visual state immediately
+                                    updateImage(targetScene.snapFrame);
+                                    updateActiveScene(targetScene.snapFrame);
+
+                                    // Clear the hash from the URL so subsequent refreshes start at the top
+                                    history.replaceState(null, null, window.location.pathname + window.location.search);
+                                    
+                                    return;
+                                }
+                            }
+
+                            // Initialize first scene if no hash or invalid hash
                             updateActiveScene(0);
                         }, 500);
                     }, 500);

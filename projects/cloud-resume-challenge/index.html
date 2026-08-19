@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Cloud Resume Challenge - Mohammed Nihal</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+    
+    <style>
+        :root {
+            --primary: #b721ff;
+            --bg-dark: #05020a;
+            --surface-dark: #0f0a1e;
+            --surface-light: rgba(30, 20, 50, 0.7);
+            --text-light: #ffffff;
+            --text-muted: #a0a0a0;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Ambient Background */
+        .ambient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background: radial-gradient(circle at 50% 0%, rgba(50, 10, 100, 0.2) 0%, rgba(0,0,0,0) 70%),
+                        radial-gradient(circle at 80% 80%, rgba(30, 0, 80, 0.3) 0%, rgba(0,0,0,0) 50%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            color: var(--primary);
+            transform: translateX(-5px);
+        }
+
+        /* Header Section */
+        .project-header {
+            margin-bottom: 60px;
+        }
+
+        .project-status {
+            display: inline-block;
+            background: rgba(183, 33, 255, 0.15);
+            color: #d484ff;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            border: 1px solid rgba(183, 33, 255, 0.4);
+            margin-bottom: 20px;
+        }
+
+        .project-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin: 0 0 10px 0;
+            line-height: 1.1;
+            text-transform: uppercase;
+        }
+
+        .project-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin: 0;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #ffffff;
+            border: 1px solid var(--primary);
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            box-shadow: 0 0 20px rgba(183, 33, 255, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-light);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Placeholder Content Sections */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+        }
+
+        @media (max-width: 900px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .section {
+            background: var(--surface-light);
+            border: 1px solid rgba(183, 33, 255, 0.1);
+            border-radius: 12px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            color: #ffffff;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin: 0 0 25px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: '';
+            display: block;
+            width: 8px;
+            height: 8px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .placeholder-text {
+            color: var(--text-muted);
+            font-style: italic;
+            opacity: 0.7;
+        }
+
+        /* Tech Stack / Architecture Mockup */
+        .arch-mockup {
+            width: 100%;
+            height: 300px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px dashed rgba(183, 33, 255, 0.3);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-family: monospace;
+            margin-top: 20px;
+        }
+
+        .tech-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .tech-badge {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 8px 15px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+            color: #d0d0d0;
+        }
+
+        .tech-badge i {
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="ambient-bg"></div>
+
+    <div class="container">
+        <a href="../../index.html#scene-projects" class="back-btn">
+            <i class="fa-solid fa-arrow-left"></i> Back to Portfolio
+        </a>
+
+        <header class="project-header">
+            <div class="project-status">IN PROGRESS</div>
+            <h1 class="project-title">AWS Cloud Resume Challenge</h1>
+            <p class="project-subtitle">Serverless Cloud Portfolio Infrastructure</p>
+            
+            <div class="action-buttons">
+                <a href="#" class="btn btn-primary"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo</a>
+                <a href="#" class="btn btn-secondary"><i class="fa-brands fa-github"></i> Source Code</a>
+            </div>
+        </header>
+
+        <div class="content-grid">
+            <div class="main-content">
+                <div class="section">
+                    <h2 class="section-title">Project Overview</h2>
+                    <p class="placeholder-text">Detailed documentation regarding the project's background, challenges, and goals will be added here once the project is completed.</p>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">Architecture Diagram</h2>
+                    <p>A high-level view of the serverless AWS architecture.</p>
+                    <div class="arch-mockup">
+                        [ Architecture Visualization Placeholder ]
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">Backend & Visitor Counter</h2>
+                    <p class="placeholder-text">Details regarding the API Gateway, Lambda functions, and DynamoDB implementation will be documented here.</p>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <div class="section">
+                    <h2 class="section-title">Technology Stack</h2>
+                    <div class="tech-list">
+                        <div class="tech-badge"><i class="devicon-amazonwebservices-plain-wordmark"></i> AWS</div>
+                        <div class="tech-badge"><i class="devicon-html5-plain"></i> HTML/CSS</div>
+                        <div class="tech-badge"><i class="devicon-javascript-plain"></i> JavaScript</div>
+                        <div class="tech-badge"><i class="fa-solid fa-server"></i> Serverless</div>
+                        <div class="tech-badge"><i class="fa-solid fa-database"></i> DynamoDB</div>
+                        <div class="tech-badge"><i class="fa-solid fa-network-wired"></i> API Gateway</div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">Key AWS Services</h2>
+                    <p class="placeholder-text">A list of specific AWS services utilized (S3, CloudFront, Route 53, ACM, Lambda, IAM) will be detailed here.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
