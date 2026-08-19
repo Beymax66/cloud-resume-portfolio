@@ -880,6 +880,216 @@
             color: #ffffff;
             text-shadow: 0 0 10px #b721ff;
         }
+        /* ========================================= */
+        /* CERTIFICATIONS SCENE UI                   */
+        /* ========================================= */
+        #scene-certifications {
+            width: 100%;
+            max-width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+
+        .cert-wrapper {
+            width: 85%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .scene.active .cert-wrapper {
+            pointer-events: auto;
+        }
+
+        .cert-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 15px;
+        }
+
+        .cert-title-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .cert-bullet {
+            width: 10px;
+            height: 10px;
+            background: #b721ff;
+            border-radius: 2px;
+        }
+
+        .cert-title {
+            color: #ffffff;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .cert-card {
+            background: rgba(15, 10, 30, 0.7);
+            border: 1px solid rgba(183, 33, 255, 0.15);
+            border-radius: 8px;
+            overflow: hidden;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(15px);
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .cert-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: rgba(183, 33, 255, 0.6);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(183, 33, 255, 0.2);
+        }
+
+        .cert-image-container {
+            height: 140px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: rgba(5, 2, 10, 0.6);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .cert-image-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transition: transform 0.5s ease;
+        }
+
+        .cert-card:hover .cert-image-container img {
+            transform: scale(1.08);
+        }
+
+        .cert-info {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .cert-name {
+            color: #ffffff;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        .cert-org {
+            color: #b721ff;
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Modal Styles */
+        .cert-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .cert-modal.open {
+            pointer-events: auto;
+            opacity: 1;
+        }
+
+        .modal-backdrop {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(5, 2, 10, 0.85);
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+        }
+
+        .modal-content {
+            position: relative;
+            z-index: 1001;
+            max-width: 90vw;
+            max-height: 85vh;
+            border-radius: 8px;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(183, 33, 255, 0.15);
+            border: 1px solid rgba(183, 33, 255, 0.3);
+            transform: scale(0.95);
+            transition: transform 0.4s ease;
+            background: #000;
+            overflow: hidden;
+        }
+
+        .cert-modal.open .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-content img {
+            display: block;
+            max-width: 100%;
+            max-height: 85vh;
+            object-fit: contain;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 1002;
+            background: rgba(15, 10, 30, 0.8);
+            color: #ffffff;
+            border: 1px solid rgba(183, 33, 255, 0.5);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-close:hover {
+            background: #b721ff;
+            transform: rotate(90deg);
+        }
     </style>
 
 <body>
@@ -1036,7 +1246,19 @@
                 </div>
 
                 <!-- 05 AWARDS / CERTIFICATIONS -->
-                <div class="scene" id="scene-certifications"></div>
+                <div class="scene" id="scene-certifications">
+                    <div class="cert-wrapper">
+                        <div class="cert-header">
+                            <div class="cert-title-wrapper">
+                                <div class="cert-bullet"></div>
+                                <h2 class="cert-title">Awards & Certifications</h2>
+                            </div>
+                        </div>
+                        <div class="cert-grid" id="certGrid">
+                            <!-- Populated dynamically via Javascript -->
+                        </div>
+                    </div>
+                </div>
 
                 <!-- 06 EDUCATION -->
                 <div class="scene" id="scene-education"></div>
@@ -1081,6 +1303,15 @@
                 <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
                 <a href="#"><i class="fa-regular fa-file-lines"></i></a>
             </div>
+        </div>
+    </div>
+
+    <!-- MODAL -->
+    <div class="cert-modal" id="certModal">
+        <div class="modal-backdrop" id="modalBackdrop"></div>
+        <button class="modal-close" id="modalClose"><i class="fa-solid fa-xmark"></i></button>
+        <div class="modal-content">
+            <img src="" alt="Certificate Preview" id="modalImage">
         </div>
     </div>
 
@@ -1353,6 +1584,85 @@
         window.addEventListener('resize', () => {
             if (lastDrawnIndex >= 0) {
                 setupCanvas(images[lastDrawnIndex]);
+            }
+        });
+        // ==========================================
+        // 4. CERTIFICATIONS DATA & RENDER ENGINE
+        // ==========================================
+        const CERTIFICATE_DATA = [
+            {
+                title: "Copado AI Certification",
+                organization: "Copado",
+                date: "2023",
+                category: "Cloud / DevOps",
+                image: "assets/certificates/Copado_ai_certification.jpg"
+            },
+            {
+                title: "IEEEXtreme Programming",
+                organization: "IEEE",
+                date: "2022",
+                category: "Programming",
+                image: "assets/certificates/ieee_xtreme_certification.jpg"
+            },
+            {
+                title: "Data Science Internship",
+                organization: "Oasis Infobyte",
+                date: "2023",
+                category: "Data Science",
+                image: "assets/certificates/Internship_in_Data_Science.jpg"
+            },
+            {
+                title: "Full Stack Web Dev",
+                organization: "Udemy",
+                date: "2021",
+                category: "Web Development",
+                image: "assets/certificates/Udemy_Certification.jpg"
+            }
+        ];
+
+        const certGrid = document.getElementById("certGrid");
+        const certModal = document.getElementById("certModal");
+        const modalImage = document.getElementById("modalImage");
+        const modalClose = document.getElementById("modalClose");
+        const modalBackdrop = document.getElementById("modalBackdrop");
+
+        // Render certificates
+        if (certGrid) {
+            CERTIFICATE_DATA.forEach(cert => {
+                const card = document.createElement("div");
+                card.className = "cert-card";
+                card.innerHTML = `
+                    <div class="cert-image-container">
+                        <img src="${cert.image}" alt="${cert.title}">
+                    </div>
+                    <div class="cert-info">
+                        <h3 class="cert-name">${cert.title}</h3>
+                        <span class="cert-org">${cert.organization} ${cert.date}</span>
+                    </div>
+                `;
+                
+                // Add click event to open modal
+                card.addEventListener('click', () => {
+                    modalImage.src = cert.image;
+                    certModal.classList.add('open');
+                });
+                
+                certGrid.appendChild(card);
+            });
+        }
+
+        // Close modal logic
+        function closeModal() {
+            certModal.classList.remove('open');
+            setTimeout(() => { modalImage.src = ""; }, 400); // Clear image after transition
+        }
+
+        modalClose.addEventListener('click', closeModal);
+        modalBackdrop.addEventListener('click', closeModal);
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && certModal.classList.contains('open')) {
+                closeModal();
             }
         });
     </script>
