@@ -7,7 +7,9 @@
     <title>Cinematic Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Inter:wght@300;400;700;900&family=Playfair+Display:wght@700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Inter:wght@300;400;700;900&family=Playfair+Display:wght@700&family=Great+Vibes&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
     <style>
@@ -249,9 +251,10 @@
             height: 100%;
             display: flex;
             flex-direction: column;
-            pointer-events: none; /* Let background be visible/interactive */
+            pointer-events: none;
+            /* Let background be visible/interactive */
         }
-        
+
         .top-nav {
             position: absolute;
             top: 25px;
@@ -305,7 +308,7 @@
         .nav-link:hover {
             opacity: 1;
         }
-        
+
         .nav-link.active {
             background: #b721ff;
             padding: 4px 12px;
@@ -446,8 +449,8 @@
             font-weight: 700;
             margin: 0;
             text-shadow: 2px 2px 0px rgba(20, 0, 40, 0.8),
-                         -1px -1px 3px rgba(183, 33, 255, 0.6),
-                         1px 1px 3px rgba(183, 33, 255, 0.6);
+                -1px -1px 3px rgba(183, 33, 255, 0.6),
+                1px 1px 3px rgba(183, 33, 255, 0.6);
             letter-spacing: 1px;
         }
 
@@ -481,6 +484,7 @@
             font-weight: 400;
             opacity: 0.9;
         }
+
         /* ========================================= */
         /* SKILLS SCENE UI                           */
         /* ========================================= */
@@ -561,23 +565,70 @@
         .skill-card i {
             font-size: 1.8rem;
         }
-        
-        .skill-react { color: #61dafb; }
-        .skill-node { color: #83cd29; }
-        .skill-aws { color: #ff9900; }
-        .skill-docker { color: #0db7ed; }
-        .skill-k8s { color: #326ce5; }
-        .skill-terraform { color: #5c4ee5; }
-        .skill-jenkins { color: #d33833; }
-        .skill-ansible { color: #ffffff; }
-        .skill-davinci { color: #ff3366; }
-        .skill-opencv { color: #ffffff; }
-        .skill-python { color: #ffda4c; }
-        .skill-canva { color: #00c4cc; }
-        .skill-github { color: #ffffff; }
-        .skill-android { color: #a4c639; }
-        .skill-ag { color: #cccccc; }
-        .skill-vscode { color: #007acc; }
+
+        .skill-react {
+            color: #61dafb;
+        }
+
+        .skill-node {
+            color: #83cd29;
+        }
+
+        .skill-aws {
+            color: #ff9900;
+        }
+
+        .skill-docker {
+            color: #0db7ed;
+        }
+
+        .skill-k8s {
+            color: #326ce5;
+        }
+
+        .skill-terraform {
+            color: #5c4ee5;
+        }
+
+        .skill-jenkins {
+            color: #d33833;
+        }
+
+        .skill-ansible {
+            color: #ffffff;
+        }
+
+        .skill-davinci {
+            color: #ff3366;
+        }
+
+        .skill-opencv {
+            color: #ffffff;
+        }
+
+        .skill-python {
+            color: #ffda4c;
+        }
+
+        .skill-canva {
+            color: #00c4cc;
+        }
+
+        .skill-github {
+            color: #ffffff;
+        }
+
+        .skill-android {
+            color: #a4c639;
+        }
+
+        .skill-ag {
+            color: #cccccc;
+        }
+
+        .skill-vscode {
+            color: #007acc;
+        }
 
         .skill-name {
             color: #d0d0d0;
@@ -762,7 +813,7 @@
             position: absolute;
             width: 150%;
             height: 150%;
-            background: radial-gradient(circle, rgba(183,33,255,0.15) 0%, rgba(0,0,0,0) 60%);
+            background: radial-gradient(circle, rgba(183, 33, 255, 0.15) 0%, rgba(0, 0, 0, 0) 60%);
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
@@ -771,7 +822,7 @@
         }
 
         .project-card:hover .project-image-placeholder::before {
-            background: radial-gradient(circle, rgba(183,33,255,0.25) 0%, rgba(0,0,0,0) 70%);
+            background: radial-gradient(circle, rgba(183, 33, 255, 0.25) 0%, rgba(0, 0, 0, 0) 70%);
         }
 
         .mockup-content {
@@ -880,6 +931,7 @@
             color: #ffffff;
             text-shadow: 0 0 10px #b721ff;
         }
+
         /* ========================================= */
         /* CERTIFICATIONS SCENE UI                   */
         /* ========================================= */
@@ -1090,6 +1142,452 @@
             background: #b721ff;
             transform: rotate(90deg);
         }
+
+        /* ========================================= */
+        /* EDUCATION SCENE UI                        */
+        /* ========================================= */
+        #scene-education {
+            width: 100%;
+            max-width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding-left: 5%;
+            pointer-events: none;
+        }
+
+        .edu-wrapper {
+            width: 32vw;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .scene.active .edu-wrapper {
+            pointer-events: auto;
+        }
+
+        .edu-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 15px;
+        }
+
+        .edu-bullet {
+            width: 10px;
+            height: 10px;
+            background: #b721ff;
+            border-radius: 2px;
+        }
+
+        .edu-title {
+            color: #ffffff;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .edu-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .edu-item {
+            display: flex;
+            gap: 15px;
+            background: rgba(15, 10, 30, 0.6);
+            border: 1px solid rgba(183, 33, 255, 0.15);
+            border-radius: 12px;
+            padding: 15px;
+            backdrop-filter: blur(15px);
+            text-decoration: none;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .edu-item:hover {
+            transform: translateX(5px);
+            border-color: rgba(183, 33, 255, 0.6);
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.4), 0 0 15px rgba(183, 33, 255, 0.2);
+            background: rgba(25, 15, 45, 0.7);
+        }
+
+        .edu-logo-container {
+            flex-shrink: 0;
+            width: 60px;
+            height: 60px;
+            background: rgba(5, 2, 10, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px;
+        }
+
+        .edu-logo-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .edu-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .edu-degree {
+            color: #ffffff;
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .edu-inst {
+            color: #b721ff;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .edu-duration {
+            color: #a0a0a0;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 1024px) {
+            .edu-wrapper {
+                width: 90vw;
+            }
+        }
+            /* ========================================= */
+        /* 07 EXPERIENCE & PROFILES SCENE            */
+        /* ========================================= */
+        #scene-experience {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+
+        .scene.active #scene-experience,
+        .scene.active .exp-layout {
+            pointer-events: auto;
+        }
+
+        .exp-layout {
+            width: 85vw;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            align-items: flex-start;
+            margin: 0 auto;
+        }
+
+        /* LEFT: WORK EXPERIENCE */
+        .exp-left {
+            width: 480px;
+            margin-left: 2.5cm;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            transform: translateX(-30px);
+            opacity: 0;
+            transition: all 0.6s ease 0.2s;
+        }
+        
+        .scene.active .exp-left {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .exp-section-title {
+            color: #ffffff;
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin: 0 0 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .exp-section-title::before {
+            content: '';
+            display: block;
+            width: 8px;
+            height: 8px;
+            background: #b721ff;
+            border-radius: 2px;
+        }
+
+        /* Work Item */
+        .work-item {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .work-header {
+            display: flex;
+            gap: 20px;
+        }
+
+        .work-logo-box {
+            width: 55px;
+            height: 55px;
+            background: rgba(15, 10, 30, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px;
+            flex-shrink: 0;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .work-logo-link:hover .work-logo-box {
+            border-color: rgba(183, 33, 255, 0.6);
+            box-shadow: 0 0 15px rgba(183, 33, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .work-logo-box img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 5px;
+        }
+
+        .work-details {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .work-role {
+            color: #ffffff;
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin: 0 0 5px 0;
+        }
+
+        .work-org-link {
+            text-decoration: none;
+            color: #b721ff;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            display: inline-block;
+            margin-bottom: 2px;
+        }
+        
+        .work-org-link:hover {
+            color: #d484ff;
+        }
+
+        .work-inst {
+            color: #888888;
+            font-size: 0.7rem;
+            margin-bottom: 10px;
+        }
+
+        .work-desc {
+            color: #d0d0d0;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* Fresher Statement */
+        .fresher-box {
+            width: 400px;
+            background: rgba(20, 10, 40, 0.4);
+            border: 1px solid rgba(183, 33, 255, 0.2);
+            border-radius: 12px;
+            padding: 20px 25px;
+            position: relative;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .fresher-box:hover {
+            border-color: rgba(183, 33, 255, 0.4);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(183, 33, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .fresher-icon {
+            position: absolute;
+            top: -15px;
+            left: 25px;
+            background: #b721ff;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .fresher-text {
+            color: #c0c0c0;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* RIGHT: CONNECT & PROFILES */
+        .exp-right {
+            width: 300px;
+            margin-right: -10cm;
+            flex-shrink: 0;
+            transform: translateX(30px);
+            opacity: 0;
+            transition: all 0.6s ease 0.4s;
+        }
+        
+        .scene.active .exp-right {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .connect-panel {
+            background: rgba(15, 10, 30, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 30px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .connect-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        /* Make the 3rd item span full width */
+        .connect-grid a:nth-child(3) {
+            grid-column: 1 / -1;
+        }
+
+        .connect-card {
+            background: rgba(5, 2, 10, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .connect-card:hover {
+            border-color: rgba(183, 33, 255, 0.4);
+            background: rgba(25, 15, 45, 0.7);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), 0 0 10px rgba(183, 33, 255, 0.2);
+        }
+
+        .connect-icon {
+            width: 36px;
+            height: 36px;
+            background: #b721ff;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background 0.3s ease;
+        }
+        
+        .connect-icon i {
+            font-size: 16px !important;
+            color: #ffffff;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        
+        .connect-card:hover .connect-icon {
+            background: #d484ff;
+            box-shadow: 0 0 10px rgba(212, 132, 255, 0.5);
+        }
+
+        .connect-info {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .connect-name {
+            color: #ffffff;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 2px;
+        }
+
+        .connect-handle {
+            color: #888888;
+            font-size: 0.7rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        @media (max-width: 1024px) {
+            .exp-layout {
+                flex-direction: column;
+                width: 90vw;
+                gap: 40px;
+            }
+            .exp-left, .exp-right {
+                width: 100%;
+                transform: translateY(30px);
+            }
+            .scene.active .exp-left, .scene.active .exp-right {
+                transform: translateY(0);
+            }
+            .connect-grid {
+                grid-template-columns: 1fr;
+            }
+            .connect-grid a:nth-child(3) {
+                grid-column: auto;
+            }
+        }
     </style>
 
 <body>
@@ -1124,7 +1622,7 @@
                         <div class="greeting">Hello, I'm</div>
                         <h1 class="hero-name">MOHAMMED<br>NIHAL M H</h1>
                         <div class="bg-name">NIHAL</div>
-                        
+
                         <div class="hero-actions">
                             <button class="hero-btn">GET IN TOUCH <i class="fa-solid fa-arrow-right"></i></button>
                             <button class="hero-btn">DOWNLOAD CV <i class="fa-solid fa-file-pdf"></i></button>
@@ -1161,32 +1659,66 @@
                             <div class="skills-title">Skills & Tech Stack</div>
                         </div>
                         <div class="skills-grid">
-                            <div class="skill-card"><i class="devicon-react-original skill-react"></i><div class="skill-name">React.js</div></div>
-                            <div class="skill-card"><i class="devicon-nodejs-plain skill-node"></i><div class="skill-name">Node.js</div></div>
-                            <div class="skill-card"><i class="devicon-amazonwebservices-plain-wordmark skill-aws"></i><div class="skill-name">AWS</div></div>
-                            <div class="skill-card"><i class="devicon-docker-plain skill-docker"></i><div class="skill-name">Docker</div></div>
-                            
-                            <div class="skill-card"><i class="devicon-kubernetes-plain skill-k8s"></i><div class="skill-name">Kubernetes</div></div>
-                            <div class="skill-card"><i class="devicon-terraform-plain skill-terraform"></i><div class="skill-name">Terraform</div></div>
-                            <div class="skill-card"><i class="devicon-jenkins-plain skill-jenkins"></i><div class="skill-name">Jenkins</div></div>
-                            <div class="skill-card"><i class="devicon-ansible-plain skill-ansible"></i><div class="skill-name">Ansible</div></div>
-                            
-                            <div class="skill-card"><i class="fa-solid fa-compact-disc skill-davinci"></i><div class="skill-name">DaVinci Resolve</div></div>
-                            <div class="skill-card"><i class="devicon-opencv-plain skill-opencv"></i><div class="skill-name">OpenCV</div></div>
-                            <div class="skill-card"><i class="devicon-python-plain skill-python"></i><div class="skill-name">Python</div></div>
-                            <div class="skill-card"><i class="fa-solid fa-paintbrush skill-canva"></i><div class="skill-name">Canva</div></div>
-                            
-                            <div class="skill-card"><i class="devicon-github-original skill-github"></i><div class="skill-name">GitHub</div></div>
-                            <div class="skill-card"><i class="devicon-androidstudio-plain skill-android"></i><div class="skill-name">Android Studio</div></div>
-                            <div class="skill-card"><i class="fa-brands fa-autoprefixer skill-ag"></i><div class="skill-name">Antigravity</div></div>
-                            <div class="skill-card"><i class="devicon-vscode-plain skill-vscode"></i><div class="skill-name">VS Code</div></div>
+                            <div class="skill-card"><i class="devicon-react-original skill-react"></i>
+                                <div class="skill-name">React.js</div>
+                            </div>
+                            <div class="skill-card"><i class="devicon-nodejs-plain skill-node"></i>
+                                <div class="skill-name">Node.js</div>
+                            </div>
+                            <div class="skill-card"><i class="devicon-amazonwebservices-plain-wordmark skill-aws"></i>
+                                <div class="skill-name">AWS</div>
+                            </div>
+                            <div class="skill-card"><i class="devicon-docker-plain skill-docker"></i>
+                                <div class="skill-name">Docker</div>
+                            </div>
+
+                            <div class="skill-card"><i class="devicon-kubernetes-plain skill-k8s"></i>
+                                <div class="skill-name">Kubernetes</div>
+                            </div>
+                            <div class="skill-card"><i class="devicon-terraform-plain skill-terraform"></i>
+                                <div class="skill-name">Terraform</div>
+                            </div>
+                            <div class="skill-card"><i class="devicon-jenkins-plain skill-jenkins"></i>
+                                <div class="skill-name">Jenkins</div>
+                            </div>
+                            <div class="skill-card"><i class="devicon-ansible-plain skill-ansible"></i>
+                                <div class="skill-name">Ansible</div>
+                            </div>
+
+                            <div class="skill-card"><i class="fa-solid fa-compact-disc skill-davinci"></i>
+                                <div class="skill-name">DaVinci Resolve</div>
+                            </div>
+                            <div class="skill-card"><i class="devicon-opencv-plain skill-opencv"></i>
+                                <div class="skill-name">OpenCV</div>
+                            </div>
+                            <div class="skill-card"><i class="devicon-python-plain skill-python"></i>
+                                <div class="skill-name">Python</div>
+                            </div>
+                            <div class="skill-card"><i class="fa-solid fa-paintbrush skill-canva"></i>
+                                <div class="skill-name">Canva</div>
+                            </div>
+
+                            <div class="skill-card"><i class="devicon-github-original skill-github"></i>
+                                <div class="skill-name">GitHub</div>
+                            </div>
+                            <div class="skill-card"><i class="devicon-androidstudio-plain skill-android"></i>
+                                <div class="skill-name">Android Studio</div>
+                            </div>
+                            <div class="skill-card"><i class="fa-brands fa-autoprefixer skill-ag"></i>
+                                <div class="skill-name">Antigravity</div>
+                            </div>
+                            <div class="skill-card"><i class="devicon-vscode-plain skill-vscode"></i>
+                                <div class="skill-name">VS Code</div>
+                            </div>
                         </div>
                     </div>
 
                     <div class="quote-container">
                         <i class="fa-solid fa-quote-left quote-icon"></i>
                         <div class="quote-text">
-                            To excel as a Cloud & DevOps Engineer specializing in AWS, Kubernetes, and CI/CD automation, bridging technical infrastructure with a keen passion for full-stack web engineering and digital video storytelling.
+                            To excel as a Cloud & DevOps Engineer specializing in AWS, Kubernetes, and CI/CD automation,
+                            bridging technical infrastructure with a keen passion for full-stack web engineering and
+                            digital video storytelling.
                         </div>
                         <div class="quote-footer">
                             <div class="quote-author">
@@ -1214,7 +1746,7 @@
                             </div>
                             <a href="#" class="explore-all">Explore All Projects &rarr;</a>
                         </div>
-                        
+
                         <div class="projects-grid">
                             <!-- Project Card 01 -->
                             <a href="./projects/cloud-resume-challenge/index.html" class="project-card">
@@ -1234,12 +1766,14 @@
                                         <span class="project-status">IN PROGRESS</span>
                                     </div>
                                     <div class="project-desc">
-                                        A serverless portfolio website built on AWS, combining modern frontend development with cloud infrastructure, CDN delivery, DNS, HTTPS and a serverless visitor counter.
+                                        A serverless portfolio website built on AWS, combining modern frontend
+                                        development with cloud infrastructure, CDN delivery, DNS, HTTPS and a serverless
+                                        visitor counter.
                                     </div>
                                     <i class="fa-solid fa-arrow-right project-arrow"></i>
                                 </div>
                             </a>
-                            
+
                             <!-- Future projects can be added here following the same .project-card structure -->
                         </div>
                     </div>
@@ -1261,10 +1795,24 @@
                 </div>
 
                 <!-- 06 EDUCATION -->
-                <div class="scene" id="scene-education"></div>
+                <div class="scene" id="scene-education">
+                    <div class="edu-wrapper">
+                        <div class="edu-header">
+                            <div class="edu-bullet"></div>
+                            <h2 class="edu-title">Education & Academics</h2>
+                        </div>
+                        <div class="edu-timeline" id="eduTimeline">
+                            <!-- Populated dynamically via Javascript -->
+                        </div>
+                    </div>
+                </div>
 
                 <!-- 07 EXPERIENCE -->
-                <div class="scene" id="scene-experience"></div>
+                <div class="scene" id="scene-experience">
+                    <div class="exp-layout" id="expLayout">
+                        <!-- Populated dynamically via Javascript -->
+                    </div>
+                </div>
 
                 <!-- 08 FEEDBACK & VIEWER COUNT -->
                 <div class="scene" id="scene-feedback"></div>
@@ -1378,7 +1926,7 @@
                 if (loadedImages === frameCount) {
                     setTimeout(() => {
                         loadingContainer.style.opacity = '0';
-                            setTimeout(() => {
+                        setTimeout(() => {
                             loadingContainer.style.display = 'none';
                             scrollIndicator.classList.add('visible');
 
@@ -1390,17 +1938,17 @@
                                     const maxScrollTop = document.documentElement.scrollHeight - window.innerHeight;
                                     const targetScrollFraction = targetScene.snapFrame / frameCount;
                                     const targetScrollTop = targetScrollFraction * maxScrollTop;
-                                    
+
                                     // Instantly scroll to the target pixel position
                                     window.scrollTo({ top: targetScrollTop, behavior: 'instant' });
-                                    
+
                                     // Update visual state immediately
                                     updateImage(targetScene.snapFrame);
                                     updateActiveScene(targetScene.snapFrame);
 
                                     // Clear the hash from the URL so subsequent refreshes start at the top
                                     history.replaceState(null, null, window.location.pathname + window.location.search);
-                                    
+
                                     return;
                                 }
                             }
@@ -1640,13 +2188,13 @@
                         <span class="cert-org">${cert.organization} ${cert.date}</span>
                     </div>
                 `;
-                
+
                 // Add click event to open modal
                 card.addEventListener('click', () => {
                     modalImage.src = cert.image;
                     certModal.classList.add('open');
                 });
-                
+
                 certGrid.appendChild(card);
             });
         }
@@ -1665,6 +2213,121 @@
                 closeModal();
             }
         });
+
+        // ==========================================
+        // 5. EDUCATION DATA & RENDER ENGINE
+        // ==========================================
+        const EDUCATION_DATA = [
+            {
+                logo: "assets/education/mes_logo.png",
+                degree: "B.Tech in Computer Science",
+                institution: "MES College of Engineering, Kuttippuram",
+                duration: "2022-2026",
+                url: "https://www.mesce.ac.in/"
+            },
+            {
+                logo: "assets/education/rmvhss_logo.jpg",
+                degree: "Higher Secondary Education (HSE)",
+                institution: "R.M.V.H.S.S Perinjanam, Thrissur",
+                duration: "2020-2022",
+                url: "https://schools.org.in/thrissur/32071001406/rmvhss-perinjanam.html"
+            },
+            {
+                logo: "assets/education/snvbss_logo.jpg",
+                degree: "AISSE",
+                institution: "S.N. VIDYA BHAVAN Chentrappinni, Thrissur",
+                duration: "2009-2020",
+                url: "https://snvbss.org/"
+            }
+        ];
+
+        const eduTimeline = document.getElementById("eduTimeline");
+
+        if (eduTimeline) {
+            EDUCATION_DATA.forEach(edu => {
+                const item = document.createElement("a");
+                item.className = "edu-item";
+                item.href = edu.url;
+                item.target = "_blank";
+                item.rel = "noopener noreferrer";
+                item.innerHTML = `
+                    <div class="edu-logo-container">
+                        <img src="${edu.logo}" alt="${edu.institution}">
+                    </div>
+                    <div class="edu-info">
+                        <h3 class="edu-degree">${edu.degree}</h3>
+                        <span class="edu-inst">${edu.institution}</span>
+                        <span class="edu-duration">${edu.duration}</span>
+                    </div>
+                `;
+                eduTimeline.appendChild(item);
+            });
+        }
+
+        // ==========================================
+        // 6. EXPERIENCE & PROFILES DATA & RENDER ENGINE
+        // ==========================================
+        const WORK_EXPERIENCE = {
+            role: "Media Team Member",
+            org: "MATRICS",
+            inst: "MES College of Engineering and Technology (MESCE)",
+            desc: "Contributed as a Media Team Member for MATRICS,<br>the Association for Technical Research in Computer Science<br>department at MESCE.",
+            logo: "assets/experience/matrics_logo.png",
+            url: "https://www.linkedin.com/company/matrics-mesce/posts/"
+        };
+
+        const PROFILES = [
+            { name: "GITHUB", handle: "github.com/Beymax66", url: "https://github.com/Beymax66", icon: "fa-brands fa-github" },
+            { name: "LINKEDIN", handle: "linkedin.com/in/mohammed-nihal-66n66", url: "https://www.linkedin.com/in/mohammed-nihal-66n66/", icon: "fa-brands fa-linkedin-in" },
+            { name: "INSTAGRAM", handle: "@_.nxhal", url: "https://www.instagram.com/_.nxhal/?hl=en", icon: "fa-brands fa-instagram" }
+        ];
+
+        const expLayout = document.getElementById("expLayout");
+        if (expLayout) {
+            expLayout.innerHTML = `
+                <div class="exp-left">
+                    <h2 class="exp-section-title">Work Experience</h2>
+                    
+                    <div class="work-item">
+                        <div class="work-header">
+                            <a href="${WORK_EXPERIENCE.url}" target="_blank" rel="noopener noreferrer" class="work-logo-link">
+                                <div class="work-logo-box">
+                                    <img src="${WORK_EXPERIENCE.logo}" alt="MATRICS Logo">
+                                </div>
+                            </a>
+                            <div class="work-details">
+                                <h3 class="work-role">${WORK_EXPERIENCE.role}</h3>
+                                <a href="${WORK_EXPERIENCE.url}" target="_blank" rel="noopener noreferrer" class="work-org-link">
+                                    ${WORK_EXPERIENCE.org}
+                                </a>
+                                <div class="work-inst">${WORK_EXPERIENCE.inst}</div>
+                            </div>
+                        </div>
+                        <p class="work-desc">${WORK_EXPERIENCE.desc}</p>
+                    </div>
+
+                    <div class="fresher-box">
+                        <div class="fresher-icon"><i class="fa-solid fa-terminal"></i></div>
+                        <p class="fresher-text">Currently a fresher with a strong interest in Cloud & DevOps and software engineering, I am actively seeking opportunities where I can apply my technical skills, learn from experienced teams, and contribute to meaningful products. If you're looking for a curious, adaptable, and multidisciplinary engineer who enjoys building and learning, let's connect.</p>
+                    </div>
+                </div>
+                
+                <div class="exp-right">
+                    <h2 class="exp-section-title">Connect & Profiles</h2>
+                    <div class="connect-panel">
+                        ${PROFILES.map(profile => `
+                            <a href="${profile.url}" target="_blank" rel="noopener noreferrer" class="connect-card">
+                                <div class="connect-icon"><i class="${profile.icon}"></i></div>
+                                <div class="connect-info">
+                                    <span class="connect-name">${profile.name}</span>
+                                    <span class="connect-handle">${profile.handle}</span>
+                                </div>
+                            </a>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
     </script>
 </body>
 
