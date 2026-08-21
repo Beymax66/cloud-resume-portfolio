@@ -78,13 +78,15 @@
             opacity: 0;
             transform: translateY(30px);
             transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-            pointer-events: auto;
-            /* Enable clicks inside the scene */
+            pointer-events: none;
+            /* Disable clicks when inactive */
         }
 
         .scene.active {
             opacity: 1;
             transform: translateY(0);
+            pointer-events: auto;
+            /* Enable clicks when active */
         }
 
         .scene.active .skills-container,
@@ -265,11 +267,13 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(40, 0, 80, 0.6);
-            backdrop-filter: blur(10px);
+            background: rgba(20, 10, 35, 0.15);
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
             padding: 8px 25px;
             border-radius: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3), inset 0 0 8px rgba(255, 255, 255, 0.1);
             width: max-content;
             gap: 40px;
             max-width: 95%;
@@ -367,18 +371,18 @@
         .hero-actions {
             display: flex;
             gap: 15px;
-            margin-top: 40px;
+            margin-top: calc(40px + 3.3cm);
             z-index: 2;
         }
 
         .hero-btn {
-            background: transparent;
+            background: rgba(15, 5, 25, 0.3);
             color: #fff;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 12px 25px;
+            border: 1px solid rgba(183, 33, 255, 0.5);
+            padding: 10px 20px;
             border-radius: 30px;
-            font-size: 0.8rem;
-            font-weight: 700;
+            font-size: 0.75rem;
+            font-weight: 600;
             letter-spacing: 1px;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -386,12 +390,25 @@
             align-items: center;
             gap: 8px;
             text-transform: uppercase;
+            text-decoration: none;
             backdrop-filter: blur(5px);
+            box-shadow: 0 0 10px rgba(183, 33, 255, 0.3);
         }
 
         .hero-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: #fff;
+            background: rgba(183, 33, 255, 0.2);
+            border-color: #d484ff;
+            box-shadow: 0 0 20px rgba(183, 33, 255, 0.8);
+            transform: translateY(-2px);
+        }
+
+        .hero-btn.static-btn {
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: none;
+            background: transparent;
+            cursor: default;
+            pointer-events: none;
+            color: #b0a0c0;
         }
 
         .global-socials {
@@ -1588,6 +1605,480 @@
                 grid-column: auto;
             }
         }
+        /* ========================================= */
+        /* SCENE 08: FEEDBACK & VISITOR COUNT        */
+        /* ========================================= */
+        .feedback-layout {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            width: 100%;
+            transform: translate(-6.3cm, 120px);
+            opacity: 0;
+            transition: all 0.8s ease-out;
+        }
+
+        .scene.active .feedback-layout {
+            transform: translate(-6.3cm, 80px);
+            opacity: 1;
+        }
+
+        .visitor-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(10, 5, 20, 0.6);
+            border: 1px solid rgba(183, 33, 255, 0.3);
+            border-radius: 12px;
+            padding: 20px 30px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(183, 33, 255, 0.1);
+            flex-wrap: wrap;
+            
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            z-index: 1000;
+            transform: scale(0.6);
+            transform-origin: bottom left;
+            transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+            gap: 0;
+        }
+
+        .visitor-container.center-expanded {
+            bottom: 50%;
+            left: 50%;
+            transform: translate(calc(-50% - 6.3cm), calc(50% - 80px)) scale(1);
+            gap: 15px;
+        }
+
+        .visitor-label {
+            color: #a0a0a0;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            font-weight: 600;
+            transition: opacity 0.5s ease, max-width 0.5s ease;
+            white-space: nowrap;
+            overflow: hidden;
+            max-width: 200px;
+        }
+        
+        .visitor-container:not(.center-expanded) .visitor-label {
+            opacity: 0;
+            max-width: 0;
+            margin: 0;
+        }
+
+        .odometer-container {
+            display: flex;
+            gap: 5px;
+            background: #000;
+            padding: 8px 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.8);
+            min-height: 60px;
+        }
+
+        .odometer-digit {
+            width: 40px;
+            height: 60px;
+            background: linear-gradient(180deg, #1a0b2e 0%, #05020a 50%, #1a0b2e 100%);
+            border-radius: 6px;
+            border: 1px solid rgba(183, 33, 255, 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 0 10px rgba(183, 33, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .odometer-digit:hover {
+            box-shadow: 0 0 20px rgba(183, 33, 255, 0.8), inset 0 0 10px rgba(255,255,255,0.1);
+            border-color: #d484ff;
+            transform: translateY(-2px);
+        }
+        
+        .odometer-digit::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 20%, rgba(0,0,0,0) 80%, rgba(0,0,0,0.6) 100%);
+            pointer-events: none;
+        }
+
+        .odometer-track {
+            display: flex;
+            flex-direction: column;
+            transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .odometer-track div {
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            text-shadow: 0 0 10px rgba(183, 33, 255, 0.6);
+            transition: text-shadow 0.3s ease, color 0.3s ease;
+        }
+
+        .odometer-digit:hover .odometer-track div {
+            text-shadow: 0 0 15px #d484ff;
+            color: #fff;
+        }
+
+        .feedback-cta {
+            background: rgba(183, 33, 255, 0.15);
+            border: 1px solid rgba(183, 33, 255, 0.5);
+            color: #ffffff;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .feedback-cta:hover {
+            background: rgba(183, 33, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(183, 33, 255, 0.4);
+        }
+
+        /* FEEDBACK MODAL */
+        .feedback-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .feedback-modal.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .feedback-content {
+            background: rgba(15, 8, 30, 0.85);
+            border: 1px solid rgba(183, 33, 255, 0.3);
+            border-radius: 16px;
+            padding: 40px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            z-index: 1001;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(183, 33, 255, 0.1);
+            transform: translateY(20px) scale(0.95);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .feedback-modal.open .feedback-content {
+            transform: translateY(0) scale(1);
+        }
+
+        .feedback-title {
+            margin: 0 0 10px 0;
+            color: #fff;
+            font-size: 1.8rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .feedback-desc {
+            color: #a0a0a0;
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .feedback-form .form-group {
+            margin-bottom: 15px;
+        }
+
+        .feedback-form input,
+        .feedback-form textarea {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 12px 15px;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+
+        .feedback-form input:focus,
+        .feedback-form textarea:focus {
+            outline: none;
+            border-color: #b721ff;
+            background: rgba(20, 10, 40, 0.7);
+        }
+
+        .rating-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px !important;
+        }
+        
+        .rating-group label {
+            color: #d0d0d0;
+            font-size: 0.9rem;
+        }
+
+        .stars-input {
+            display: flex;
+            gap: 5px;
+            color: #555;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+        
+        .stars-input i {
+            transition: color 0.2s ease;
+        }
+
+        .stars-input i:hover { color: #d484ff; }
+        .stars-input i.active { color: #b721ff; font-weight: 900; }
+
+        .feedback-submit {
+            width: 100%;
+            background: #b721ff;
+            color: #fff;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .feedback-submit:hover {
+            background: #d484ff;
+        }
+
+        /* ========================================= */
+        /* SCENE 09: FOOTER & CONTACT                */
+        /* ========================================= */
+        #scene-footer {
+            max-width: 1200px;
+            width: 95%;
+        }
+
+        .footer-layout {
+            display: flex;
+            flex-direction: row;
+            width: 90%;
+            max-width: 680px;
+            margin: 0;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(15, 5, 25, 0.6);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(183, 33, 255, 0.2);
+            border-radius: 20px;
+            padding: 30px;
+            box-sizing: border-box;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 30px rgba(183, 33, 255, 0.05);
+            /* Restrict purely to the left side */
+            position: absolute;
+            top: 50%;
+            left: 5%;
+            transform-origin: left center;
+            transform: translateY(calc(-50% + 50px)) scale(0.8); /* initial state for animation */
+            gap: 20px;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .scene.active .footer-layout {
+            transform: translateY(-50%) scale(0.85);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .footer-left {
+            flex: 1;
+            max-width: 320px;
+        }
+
+        .footer-title {
+            font-size: 2.2rem;
+            font-weight: 900;
+            line-height: 1.1;
+            color: #ffffff;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            text-shadow: 0 0 20px rgba(183, 33, 255, 0.5);
+        }
+
+        .footer-sparkle {
+            color: #d484ff;
+            font-size: 1.5rem;
+            vertical-align: middle;
+            margin-left: 8px;
+            filter: drop-shadow(0 0 10px #b721ff);
+        }
+
+        .footer-desc {
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: #b0a0c0;
+            margin-bottom: 20px;
+        }
+
+        .footer-cta {
+            display: inline-block;
+            background: rgba(183, 33, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(183, 33, 255, 0.5);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(183, 33, 255, 0.2);
+        }
+
+        .footer-cta:hover {
+            background: rgba(183, 33, 255, 0.3);
+            box-shadow: 0 0 30px rgba(183, 33, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .footer-right {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 0;
+        }
+
+        .contact-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 5px;
+            background: transparent;
+            border: none;
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item i {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            font-size: 0.9rem;
+            color: #e0e0e0;
+            background: transparent;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .contact-item:hover:not(.static-item) i {
+            border-color: rgba(183, 33, 255, 0.6);
+            background: rgba(183, 33, 255, 0.15);
+            box-shadow: 0 0 10px rgba(183, 33, 255, 0.3);
+            color: #d484ff;
+        }
+
+        .contact-item:hover:not(.static-item) span {
+            color: #fff;
+            transform: translateX(5px);
+        }
+
+        .contact-item span {
+            transition: all 0.3s ease;
+        }
+
+        .btn-contact {
+            width: auto;
+            text-align: left;
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .footer-layout {
+                left: 50%;
+                transform-origin: center center;
+                transform: translate(-50%, calc(-50% + 50px)) scale(0.8);
+            }
+            .scene.active .footer-layout {
+                transform: translate(-50%, -50%) scale(0.85);
+            }
+            .visitor-container {
+                flex-direction: column;
+                padding: 20px;
+                text-align: center;
+            }
+            
+            .feedback-layout {
+                transform: translateY(120px);
+            }
+            
+            .scene.active .feedback-layout {
+                transform: translateY(80px);
+            }
+            
+            .footer-layout {
+                flex-direction: column;
+                padding: 30px;
+                gap: 40px;
+            }
+            .footer-left {
+                text-align: center;
+            }
+            .footer-title {
+                font-size: 3rem;
+            }
+            .footer-right {
+                justify-content: center;
+                width: 100%;
+            }
+        }
     </style>
 
 <body>
@@ -1624,9 +2115,9 @@
                         <div class="bg-name">NIHAL</div>
 
                         <div class="hero-actions">
-                            <button class="hero-btn">GET IN TOUCH <i class="fa-solid fa-arrow-right"></i></button>
-                            <button class="hero-btn">DOWNLOAD CV <i class="fa-solid fa-file-pdf"></i></button>
-                            <button class="hero-btn"><i class="fa-solid fa-location-dot"></i> KERALA, INDIA</button>
+                            <a href="mailto:nihalhussain6666@gmail.com" class="hero-btn">GET IN TOUCH <i class="fa-solid fa-arrow-right"></i></a>
+                            <a href="assets/Mohammmed_Nihal_CV.pdf" target="_blank" class="hero-btn">DOWNLOAD CV <i class="fa-solid fa-file-pdf"></i></a>
+                            <button class="hero-btn static-btn"><i class="fa-solid fa-location-dot"></i> KERALA, INDIA</button>
                         </div>
                     </div>
                 </div>
@@ -1815,10 +2306,64 @@
                 </div>
 
                 <!-- 08 FEEDBACK & VIEWER COUNT -->
-                <div class="scene" id="scene-feedback"></div>
+                <div class="scene" id="scene-feedback">
+                    <div class="feedback-layout">
+                        <button class="feedback-cta" id="feedbackCtaBtn">
+                            <i class="fa-solid fa-comment-dots"></i> Wanna share something?!
+                        </button>
+                    </div>
+                </div>
 
                 <!-- 09 FOOTER / CONTACT -->
-                <div class="scene" id="scene-footer"></div>
+                <div class="scene" id="scene-footer">
+                    <div class="footer-layout">
+                        <div class="footer-left">
+                            <h2 class="footer-title">LET'S BUILD <br>TOGETHER <i class="fa-solid fa-sparkles footer-sparkle"></i></h2>
+                            <p class="footer-desc">
+                                Open to full-time Cloud & DevOps opportunities, as well as internships where I can learn from experienced professionals and grow alongside strong engineering teams.
+                            </p>
+                            <a href="mailto:nihalhussain6666@gmail.com" class="footer-cta">GET IN TOUCH &rarr;</a>
+                        </div>
+                        
+                        <div class="footer-right">
+                            <div class="contact-list">
+                                <a href="mailto:nihalhussain6666@gmail.com" class="contact-item">
+                                    <i class="fa-regular fa-envelope"></i>
+                                    <span>nihalhussain6666@gmail.com</span>
+                                </a>
+                                <a href="https://www.instagram.com/_.nxhal/?hl=en" target="_blank" class="contact-item">
+                                    <i class="fa-brands fa-instagram"></i>
+                                    <span>@_.nxhal</span>
+                                </a>
+                                <a href="https://github.com/Beymax66" target="_blank" class="contact-item">
+                                    <i class="fa-brands fa-github"></i>
+                                    <span>github.com/Beymax66</span>
+                                </a>
+                                <a href="https://www.linkedin.com/in/mohammed-nihal-66n66/" target="_blank" class="contact-item">
+                                    <i class="fa-brands fa-linkedin-in"></i>
+                                    <span>linkedin.com/in/mohammed-nihal-66n66</span>
+                                </a>
+                                <button id="waRequestBtn" class="contact-item btn-contact">
+                                    <i class="fa-brands fa-whatsapp"></i>
+                                    <span>WhatsApp / Contact on Request</span>
+                                </button>
+                                <div class="contact-item static-item">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    <span>Kerala, India</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GLOBAL VISITOR COUNTER -->
+            <div class="visitor-container" id="globalVisitorCounter">
+                <div class="visitor-label">YOU ARE THE</div>
+                <div class="odometer-container" id="visitorOdometer">
+                    <!-- Digits dynamically generated by JS -->
+                </div>
+                <div class="visitor-label">TH VISITOR</div>
             </div>
 
             <div class="scroll-indicator" id="scrollIndicator">
@@ -1860,6 +2405,63 @@
         <button class="modal-close" id="modalClose"><i class="fa-solid fa-xmark"></i></button>
         <div class="modal-content">
             <img src="" alt="Certificate Preview" id="modalImage">
+        </div>
+    </div>
+
+    <!-- FEEDBACK MODAL -->
+    <div class="feedback-modal" id="feedbackModal">
+        <div class="modal-backdrop" id="feedbackBackdrop"></div>
+        <div class="feedback-content">
+            <button class="modal-close" id="feedbackClose"><i class="fa-solid fa-xmark"></i></button>
+            <h2 class="feedback-title">Wanna share something?!</h2>
+            <p class="feedback-desc">Have something to say, suggest, ask, or simply leave a thought? I'd love to hear from you.</p>
+            
+            <form id="feedbackForm" class="feedback-form">
+                <div class="form-group">
+                    <input type="text" id="fbName" placeholder="Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="fbEmail" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <textarea id="fbMessage" placeholder="Message / Suggestion" rows="4" required></textarea>
+                </div>
+                <div class="form-group rating-group">
+                    <label>Rate your experience:</label>
+                    <div class="stars-input">
+                        <i class="fa-regular fa-star" data-rating="1"></i>
+                        <i class="fa-regular fa-star" data-rating="2"></i>
+                        <i class="fa-regular fa-star" data-rating="3"></i>
+                        <i class="fa-regular fa-star" data-rating="4"></i>
+                        <i class="fa-regular fa-star" data-rating="5"></i>
+                    </div>
+                    <input type="hidden" id="fbRating" value="0">
+                </div>
+                <button type="submit" class="feedback-submit">SEND MESSAGE</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- WHATSAPP MODAL -->
+    <div class="feedback-modal" id="whatsappModal">
+        <div class="modal-backdrop" id="waBackdrop"></div>
+        <div class="feedback-content">
+            <button class="modal-close" id="waClose"><i class="fa-solid fa-xmark"></i></button>
+            <h2 class="feedback-title">Request WhatsApp Contact</h2>
+            <p class="feedback-desc">Please provide your details and I will share my reserved WhatsApp contact (@iam_nihaal) with you.</p>
+            
+            <form id="waForm" class="feedback-form">
+                <div class="form-group">
+                    <input type="text" id="waName" placeholder="Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="waEmail" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <textarea id="waMessage" placeholder="Purpose of contact" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="feedback-submit">SEND REQUEST</button>
+            </form>
         </div>
     </div>
 
@@ -2327,6 +2929,278 @@
                     </div>
                 </div>
             `;
+        }
+
+        // ==========================================
+        // 7. SCENE 8: VISITOR COUNT & FEEDBACK
+        // ==========================================
+        
+        // Mock API Call for Visitor Count
+        async function fetchVisitorCount() {
+            // TODO: Replace with real AWS API Gateway endpoint
+            // const response = await fetch('YOUR_API_GATEWAY_URL');
+            // const data = await response.json();
+            // return data.count;
+            
+            return new Promise(resolve => {
+                setTimeout(() => resolve(127), 800); // Mock delay
+            });
+        }
+
+        function createOdometerDigit() {
+            const digit = document.createElement('div');
+            digit.className = 'odometer-digit';
+            
+            const track = document.createElement('div');
+            track.className = 'odometer-track';
+            // Create numbers 0-9
+            for (let i = 0; i <= 9; i++) {
+                const num = document.createElement('div');
+                num.innerText = i;
+                track.appendChild(num);
+            }
+            // Add a final 0 to allow rolling from 9 to 0 smoothly if needed
+            const finalZero = document.createElement('div');
+            finalZero.innerText = '0';
+            track.appendChild(finalZero);
+            
+            digit.appendChild(track);
+            return { digit, track };
+        }
+
+        let odometerAnimated = false;
+
+        async function initVisitorCounter() {
+            const container = document.getElementById('visitorOdometer');
+            if (!container) return;
+            
+            // Clear placeholder
+            container.innerHTML = '';
+            
+            // Get count
+            const count = await fetchVisitorCount();
+            const countStr = count.toString();
+            // Previous count for the roll effect
+            const prevCountStr = (count - 1).toString().padStart(countStr.length, '0');
+            
+            const tracks = [];
+            
+            // Setup digits
+            for (let i = 0; i < countStr.length; i++) {
+                const { digit, track } = createOdometerDigit();
+                container.appendChild(digit);
+                
+                const targetValue = parseInt(countStr[i]);
+                const isLastDigit = i === countStr.length - 1;
+                const startValue = isLastDigit ? parseInt(prevCountStr[i]) : targetValue;
+                
+                let animateTo = targetValue;
+                if (isLastDigit && startValue > targetValue) {
+                    animateTo = 10;
+                }
+                
+                // Position track initially AT TARGET VALUE (so mini version is correct)
+                track.style.transition = 'none';
+                track.style.transform = `translateY(-${animateTo * 60}px)`;
+                void track.offsetWidth; // Force reflow
+                track.style.transition = 'transform 1.5s cubic-bezier(0.25, 1, 0.5, 1)';
+                
+                tracks.push({ track, startValue, targetValue: animateTo, isLastDigit });
+            }
+            
+            const sceneFeedback = document.getElementById('scene-feedback');
+            const globalCounter = document.getElementById('globalVisitorCounter');
+            
+            const observer = new MutationObserver((mutations) => {
+                mutations.forEach(mutation => {
+                    if (mutation.attributeName === 'class') {
+                        if (sceneFeedback.classList.contains('active') && !odometerAnimated) {
+                            odometerAnimated = true;
+                            globalCounter.classList.add('center-expanded');
+                            
+                            // Instantly reset the last digit to start value so it can roll
+                            tracks.forEach(t => {
+                                if (t.isLastDigit) {
+                                    t.track.style.transition = 'none';
+                                    t.track.style.transform = `translateY(-${t.startValue * 60}px)`;
+                                    void t.track.offsetWidth;
+                                    t.track.style.transition = 'transform 1.5s cubic-bezier(0.25, 1, 0.5, 1)';
+                                }
+                            });
+                            
+                            setTimeout(() => {
+                                tracks.forEach(t => {
+                                    if (t.isLastDigit) {
+                                        t.track.style.transform = `translateY(-${t.targetValue * 60}px)`;
+                                    }
+                                });
+                            }, 50);
+                        } else if (!sceneFeedback.classList.contains('active')) {
+                            globalCounter.classList.remove('center-expanded');
+                            odometerAnimated = false;
+                        }
+                    }
+                });
+            });
+            
+            observer.observe(sceneFeedback, { attributes: true });
+            
+            // Initial check in case it's already active
+            if (sceneFeedback.classList.contains('active')) {
+                odometerAnimated = true;
+                globalCounter.classList.add('center-expanded');
+                
+                // Instantly reset the last digit to start value
+                tracks.forEach(t => {
+                    if (t.isLastDigit) {
+                        t.track.style.transition = 'none';
+                        t.track.style.transform = `translateY(-${t.startValue * 60}px)`;
+                        void t.track.offsetWidth;
+                        t.track.style.transition = 'transform 1.5s cubic-bezier(0.25, 1, 0.5, 1)';
+                    }
+                });
+                
+                setTimeout(() => {
+                    tracks.forEach(t => {
+                        if (t.isLastDigit) {
+                            t.track.style.transform = `translateY(-${t.targetValue * 60}px)`;
+                        }
+                    });
+                }, 50);
+            }
+        }
+
+        // Initialize when page loads
+        window.addEventListener('DOMContentLoaded', () => {
+            initVisitorCounter();
+        });
+
+        // Feedback Modal Logic
+        const feedbackCtaBtn = document.getElementById('feedbackCtaBtn');
+        const feedbackModal = document.getElementById('feedbackModal');
+        const feedbackClose = document.getElementById('feedbackClose');
+        const feedbackBackdrop = document.getElementById('feedbackBackdrop');
+        const feedbackForm = document.getElementById('feedbackForm');
+        const stars = document.querySelectorAll('.stars-input i');
+        const ratingInput = document.getElementById('fbRating');
+
+        function openFbModal() {
+            if (feedbackModal) feedbackModal.classList.add('open');
+        }
+
+        function closeFbModal() {
+            if (feedbackModal) feedbackModal.classList.remove('open');
+        }
+
+        if (feedbackCtaBtn) feedbackCtaBtn.addEventListener('click', openFbModal);
+        if (feedbackClose) feedbackClose.addEventListener('click', closeFbModal);
+        if (feedbackBackdrop) feedbackBackdrop.addEventListener('click', closeFbModal);
+
+        // Escape key to close feedback modal
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && feedbackModal && feedbackModal.classList.contains('open')) {
+                closeFbModal();
+            }
+        });
+
+        // Star Rating Logic
+        stars.forEach(star => {
+            star.addEventListener('click', () => {
+                const rating = star.getAttribute('data-rating');
+                ratingInput.value = rating;
+                
+                stars.forEach(s => {
+                    if (parseInt(s.getAttribute('data-rating')) <= parseInt(rating)) {
+                        s.classList.remove('fa-regular');
+                        s.classList.add('fa-solid', 'active');
+                    } else {
+                        s.classList.remove('fa-solid', 'active');
+                        s.classList.add('fa-regular');
+                    }
+                });
+            });
+        });
+
+        if (feedbackForm) {
+            feedbackForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const btn = feedbackForm.querySelector('.feedback-submit');
+                const originalText = btn.innerText;
+                
+                btn.innerText = 'SENDING...';
+                btn.style.opacity = '0.7';
+                
+                // Mock API Submission
+                setTimeout(() => {
+                    btn.innerText = 'SENT SUCCESSFULLY!';
+                    btn.style.background = '#28a745';
+                    btn.style.opacity = '1';
+                    
+                    setTimeout(() => {
+                        closeFbModal();
+                        feedbackForm.reset();
+                        // Reset stars
+                        stars.forEach(s => {
+                            s.classList.remove('fa-solid', 'active');
+                            s.classList.add('fa-regular');
+                        });
+                        ratingInput.value = '0';
+                        
+                        btn.innerText = originalText;
+                        btn.style.background = '';
+                    }, 1500);
+                }, 1000);
+            });
+        }
+
+        // WhatsApp Modal Logic
+        const waRequestBtn = document.getElementById('waRequestBtn');
+        const whatsappModal = document.getElementById('whatsappModal');
+        const waClose = document.getElementById('waClose');
+        const waBackdrop = document.getElementById('waBackdrop');
+        const waForm = document.getElementById('waForm');
+
+        function openWaModal() {
+            if (whatsappModal) whatsappModal.classList.add('open');
+        }
+
+        function closeWaModal() {
+            if (whatsappModal) whatsappModal.classList.remove('open');
+        }
+
+        if (waRequestBtn) waRequestBtn.addEventListener('click', openWaModal);
+        if (waClose) waClose.addEventListener('click', closeWaModal);
+        if (waBackdrop) waBackdrop.addEventListener('click', closeWaModal);
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && whatsappModal && whatsappModal.classList.contains('open')) {
+                closeWaModal();
+            }
+        });
+
+        if (waForm) {
+            waForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const btn = waForm.querySelector('.feedback-submit');
+                const originalText = btn.innerText;
+                
+                btn.innerText = 'SENDING...';
+                btn.style.opacity = '0.7';
+                
+                setTimeout(() => {
+                    btn.innerText = 'REQUEST SENT!';
+                    btn.style.background = '#28a745';
+                    btn.style.opacity = '1';
+                    
+                    setTimeout(() => {
+                        closeWaModal();
+                        waForm.reset();
+                        
+                        btn.innerText = originalText;
+                        btn.style.background = '';
+                    }, 1500);
+                }, 1000);
+            });
         }
     </script>
 </body>
