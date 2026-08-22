@@ -2558,6 +2558,47 @@
             .cursor-electric { display: none !important; }
             .cursor-mask { transition: none !important; filter: drop-shadow(0 0 4px rgba(183, 33, 255, 0.9)); }
         }
+
+        /* ========================================= */
+        /* PANTHER REVEAL LAYER                      */
+        /* ========================================= */
+        :root {
+            /* Adjust these values to align the Panther exactly with your background portrait */
+            --panther-width: 58.08vw; /* Increased by another 10% */
+            --panther-max-width: 871.2px; /* Increased by another 10% */
+            --panther-left: 5%;
+            --panther-bottom: -1.0cm; /* Moved another 0.7cm downwards */
+            --panther-height: 123.42vh; /* Increased by another 10% */
+        }
+
+        .panther-reveal-layer {
+            position: absolute;
+            left: calc(var(--panther-left) - 1.9cm); /* Moved another 0.3cm to the right */
+            bottom: var(--panther-bottom);
+            width: var(--panther-width);
+            max-width: var(--panther-max-width);
+            height: var(--panther-height);
+            background-image: url('assets/panther-reveal.png');
+            background-size: contain;
+            background-position: bottom center;
+            background-repeat: no-repeat;
+            
+            /* CSS Masking for reveal */
+            -webkit-mask-image: radial-gradient(circle 200px at var(--mask-x, -999px) var(--mask-y, -999px), rgba(0,0,0,1) 0%, rgba(0,0,0,1) 20%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0) 85%);
+            mask-image: radial-gradient(circle 200px at var(--mask-x, -999px) var(--mask-y, -999px), rgba(0,0,0,1) 0%, rgba(0,0,0,1) 20%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0) 85%);
+            
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+            z-index: 1; /* Below the hero text, above the canvas */
+            
+            /* Violet energy aura on revealed edges and slight brightness bump */
+            filter: drop-shadow(0 0 25px rgba(183, 33, 255, 0.9)) brightness(1.2);
+        }
+
+        .panther-reveal-layer.active {
+            opacity: 1;
+        }
     </style>
 
 <body>
@@ -2608,6 +2649,8 @@
             <div class="scene-overlay" id="sceneOverlay">
                 <!-- 01 HERO -->
                 <div class="scene" id="scene-hero">
+                    <!-- PANTHER REVEAL OVERLAY -->
+                    <div class="panther-reveal-layer" id="pantherRevealLayer"></div>
 
                     <!-- ID Card Feature -->
                     <div class="id-card-container">
@@ -4109,6 +4152,90 @@
 
             // Start loop
             requestAnimationFrame(updateCursor);
+        });
+    </script>
+    <!-- ========================================= -->
+    <!-- PANTHER REVEAL LOGIC                      -->
+    <!-- ========================================= -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const revealLayer = document.getElementById('pantherRevealLayer');
+            if (!revealLayer) return;
+
+            let targetX = -999;
+            let targetY = -999;
+            let currentX = -999;
+            let currentY = -999;
+            let isActive = false;
+            let isHovering = false;
+            
+            const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+            const handleMove = (clientX, clientY) => {
+                const rect = revealLayer.getBoundingClientRect();
+                
+                // Check if cursor is within the reveal layer's bounding box
+                if (
+                    clientX >= rect.left &&
+                    clientX <= rect.right &&
+                    clientY >= rect.top &&
+                    clientY <= rect.bottom
+                ) {
+                    isHovering = true;
+                    // Calculate coordinates relative to the reveal layer
+                    targetX = clientX - rect.left;
+                    targetY = clientY - rect.top;
+                    
+                    if (!isActive) {
+                        revealLayer.classList.add('active');
+                        isActive = true;
+                        // Snap current coordinates instantly on enter to avoid long fly-in trails
+                        currentX = targetX;
+                        currentY = targetY;
+                    }
+                } else {
+                    isHovering = false;
+                    if (isActive) {
+                        revealLayer.classList.remove('active');
+                        isActive = false;
+                    }
+                }
+            };
+
+            window.addEventListener('mousemove', (e) => {
+                handleMove(e.clientX, e.clientY);
+            });
+
+            window.addEventListener('touchmove', (e) => {
+                if (e.touches.length > 0) {
+                    handleMove(e.touches[0].clientX, e.touches[0].clientY);
+                }
+            }, { passive: true });
+            
+            window.addEventListener('touchend', () => {
+                isHovering = false;
+                if (isActive) {
+                    revealLayer.classList.remove('active');
+                    isActive = false;
+                }
+            });
+
+            const animateReveal = () => {
+                // Smooth LERP for trailing effect
+                const LERP_SPEED = prefersReducedMotion ? 1 : 0.15; // Instant if reduced motion
+                
+                if (isActive) {
+                    currentX += (targetX - currentX) * LERP_SPEED;
+                    currentY += (targetY - currentY) * LERP_SPEED;
+                    
+                    revealLayer.style.setProperty('--mask-x', `${currentX}px`);
+                    revealLayer.style.setProperty('--mask-y', `${currentY}px`);
+                }
+
+                requestAnimationFrame(animateReveal);
+            };
+
+            animateReveal();
         });
     </script>
 </body>
